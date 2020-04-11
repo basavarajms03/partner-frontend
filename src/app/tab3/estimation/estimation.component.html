@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Estimation</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+
+      <ion-button>
+        <ion-icon name="notifications"></ion-icon>
+        <ion-badge color="danger" class="notification">3</ion-badge>
+      </ion-button>
+
+      <ion-button>
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+      
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form>
+    <div class="ion-margin ion-text-center">
+      <h4 class="heading">Customer Estimation</h4>
+    </div>
+    <div>
+      <ion-input type="text" placeholder="Item Name" class="input"></ion-input>
+    </div>
+    <div class="ion-margin-top">
+      <ion-input type="text" placeholder="Price" class="input"></ion-input>
+    </div>
+    <div class="ion-margin-top ion-text-center">
+      <ion-button type="submit" class="submit ion-text-capitalize">Add Item</ion-button>
+    </div>
+  </form>
+
+  <ion-item lines="none">
+    <div class="ion-margin-top heading">Added Items</div>
+  </ion-item>
+
+  <ion-card>
+    <ion-item lines="none">
+
+      <ion-label>
+        <h2>Item Name</h2>
+        <p>Price</p>
+      </ion-label>
+
+      <div class="icons">
+        <ion-icon name="trash-outline" class="del-icons-info"></ion-icon>
+        <ion-icon name="create-outline" class="edit-icons-info"></ion-icon>
+      </div>
+
+    </ion-item>
+  </ion-card>
+</ion-content>

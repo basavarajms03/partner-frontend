@@ -1,0 +1,25 @@
+.submit {
+  --box-shadow: none;
+}
+
+.heading {
+  color: #554d99;
+  font-weight: 700;
+}
+
+.icons {
+  margin-left: 30px;
+
+  .del-icons-info {
+    background: #d21616;
+    margin-right: 5px;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+  }
+
+  .edit-icons-info{
+      @extend .del-icons-info;
+      background: #15155f;
+  }
+}

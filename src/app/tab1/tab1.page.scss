@@ -1,0 +1,55 @@
+ion-content ion-toolbar {
+  --background: translucent;
+}
+
+ion-col,
+ion-grid {
+  padding: 0px !important;
+}
+
+.completed {
+  color: #d14f57;
+}
+
+.pending {
+  color: #5d89a8;
+}
+
+.request {
+  color: #44af69;
+}
+
+.activities {
+  margin-bottom: 0px;
+  margin-left: 12px;
+  font-weight: bold;
+  color: #969494;
+}
+
+.startingAvatar {
+  background: #c381fe;
+  --border-radius: 0px;
+  color: white;
+  font-size: 25px;
+  text-align: center;
+  padding-top: 5px;
+}
+
+.startingAvatar-two {
+  background: #5ac7ab;
+  --border-radius: 0px;
+  color: white;
+  font-size: 25px;
+  text-align: center;
+  padding-top: 5px;
+}
+
+.date {
+  font-size: 10px;
+  text-align: right;
+  color: blue;
+  font-weight: bold;
+  margin-right: 5px;
+  position: relative;
+  top: 4px;
+}

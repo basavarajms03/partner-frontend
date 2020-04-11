@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">Create Account</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h3 class="ion-text-center">Create Your Account Free!</h3>
+  <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+    <div>
+      <ion-input type="text" class="input ion-text-capitalize" placeholder="Full Name" formControlName="name">
+      </ion-input>
+    </div>
+    <div class="ion-margin-top">
+      <ion-input type="numbr" class="input" placeholder="Phone Number" formControlName="phoneNumber"></ion-input>
+    </div>
+    <div class="ion-margin-top">
+      <ion-input type="email" class="input" placeholder="Email Id" formControlName="email"></ion-input>
+    </div>
+    <div class="ion-margin-top input">
+      <ion-item lines="none">
+        <ion-label>Registration Type</ion-label>
+        <ion-select placeholder="Select" formControlName="registrationType"
+          (ngModelChange)="checkRegType($event)">
+          <ion-select-option value="Employee">Worker</ion-select-option>
+          <ion-select-option value="Customer">Customer</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+    <div class="ion-margin-top input" *ngIf="enableEmpType">
+      <ion-item lines="none">
+        <ion-label>Employee Type</ion-label>
+        <ion-select placeholder="Select" multiple="true" formControlName="employeeType">
+          <ion-select-option *ngFor="let empTypes of employeeTypes" [value]="empTypes.value">{{empTypes.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+    <div class="ion-margin-top">
+      <ion-input type="text" placeholder="City" class="input" formControlName="city"></ion-input>
+    </div>
+    <div class="ion-margin-top">
+      <ion-input type="password" placeholder="Password" class="input" formControlName="password"></ion-input>
+    </div>
+    <div class="ion-margin-top">
+      <ion-input type="password" placeholder="Confirm Password" class="input" formControlName="confirmPassword">
+      </ion-input>
+    </div>
+    <div class="ion-margin-top">
+      <ion-textarea class="input textarea" rows="5" cols="1" placeholder="Address" formControlName="address">
+      </ion-textarea>
+    </div>
+    <div class="ion-margin-top ion-text-center">
+      <ion-button class="submit ion-text-capitalize" type="submit" [disabled]="!accountForm.valid">Create Account
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

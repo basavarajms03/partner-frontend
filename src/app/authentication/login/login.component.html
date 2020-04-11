@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">Account Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="form" (submit)="onSubmit()">
+    <div class="ion-margin ion-text-center">
+      <h2>Welcome</h2>
+      <h3>Login Your Account</h3>
+    </div>
+    <div>
+      <ion-input type="number" placeholder="Phone Number" class="input" formControlName="username"></ion-input>
+    </div>
+    <div class="ion-margin-top">
+      <ion-input type="password" placeholder="Password" class="input" formControlName="password"></ion-input>
+    </div>
+    <div class="ion-margin-top ion-text-center">
+      <ion-button type="submit" class="submit">Submit</ion-button>
+    </div>
+  </form>
+  <div class="ion-text-center ion-margin-top">
+    <span class="ion-margin-top hr-line">Or</span>
+  </div>
+  <div class="ion-margin-top ion-text-center">
+    <ion-button class="google-submit ion-text-capitalize">Login With Google</ion-button>
+  </div>
+  <div class="ion-text-center ion-margin-top">
+    <span class="account">
+      Don't Have Account?
+      <a [routerLink]="['/authentication/createAccount']">Sign Up</a>
+    </span>
+  </div>
+</ion-content>

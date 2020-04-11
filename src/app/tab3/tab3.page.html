@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+      Requests Assigned
+    </ion-title>
+    <ion-buttons slot="end">
+
+      <ion-button>
+        <ion-icon name="notifications"></ion-icon>
+        <ion-badge color="danger" class="notification">3</ion-badge>
+      </ion-button>
+
+      <ion-button>
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card [routerLink]="['/tabs/request/more-info']">
+    <ion-item lines="none">
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/399/399340.svg">
+      </ion-avatar>
+
+      <ion-label class="ion-text-capitalize">
+        <h2>Tubelight Repair</h2>
+        <p>Check for description for more decription please ckuc</p>
+      </ion-label>
+
+    </ion-item>
+  </ion-card>
+  <ion-card [routerLink]="">
+    <ion-item lines="none">
+      <ion-avatar slot="start">
+        <img src="https://image.flaticon.com/icons/svg/427/427735.svg">
+      </ion-avatar>
+
+      <ion-label class="ion-text-capitalize">
+        <h2>Electricity Repair</h2>
+        <p>Click Here For More Info</p>
+      </ion-label>
+
+    </ion-item>
+  </ion-card>
+</ion-content>
