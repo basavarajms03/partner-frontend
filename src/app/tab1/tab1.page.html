@@ -5,7 +5,7 @@
     </ion-title>
 
     <ion-buttons slot="end">
-      
+
       <ion-button>
         <ion-icon name="notifications"></ion-icon>
         <ion-badge color="danger" class="notification">3</ion-badge>
@@ -18,70 +18,43 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <canvas #barCanvas height="200vh" class="ion-margin-top"></canvas>
-  <p class="activities">-- Activities --</p>
-  <ion-card>
-    <ion-grid>
-      <ion-row>
-        <ion-col size-sm="4" size-xs="4">
-          <ion-item lines="none" class="ion-text-center">
-            <ion-label>
-              <h1 class="request"><b>10</b></h1>
-              <p class="request"><b>Requests</b></p>
-            </ion-label>
-          </ion-item>
-        </ion-col>
-        <ion-col size-sm="4" size-xs="4">
-          <ion-item lines="none" class="ion-text-center">
-            <ion-label>
-              <h1 class="pending"><b>12</b></h1>
-              <p class="pending"><b>Pending</b></p>
-            </ion-label>
-          </ion-item>
-        </ion-col>
-        <ion-col size-sm="4" size-xs="4">
-          <ion-item lines="none" class="ion-text-center">
-            <ion-label>
-              <h1 class="completed"><b>32</b></h1>
-              <p class="completed"><b>Completed</b></p>
-            </ion-label>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-card>
-  <p class="activities">-- Current Requests --</p>
-  <ion-item lines="full" detail>
-    <ion-avatar slot="start" class="startingAvatar">
-      <ion-icon name="briefcase-outline"></ion-icon>
-    </ion-avatar>
-    <ion-label>
-      <ion-row>
-        <ion-col size="8" size-xs="8" size-sm="8">
-          <ion-label>Tubelight Repair RepairRepairRepairRepair</ion-label>
-        </ion-col>
-        <ion-col size="4" size-xs="4" size-sm="4">
-          <ion-label class="date">{{dateInfo}}</ion-label>
-        </ion-col>
-      </ion-row>
-      <p>Check For Description for more information</p>
-    </ion-label>
-  </ion-item>
-  <ion-item lines="full" detail>
-    <ion-avatar slot="start" class="startingAvatar-two">
-      <ion-icon name="briefcase-outline"></ion-icon>
-    </ion-avatar>
-    <ion-label>
-      <ion-row>
-        <ion-col size="8" size-xs="8" size-sm="8">
-          <ion-label>Check For Electrical Meter</ion-label>
-        </ion-col>
-        <ion-col size="4" size-xs="4" size-sm="4">
-          <ion-label class="date">{{dateInfo}}</ion-label>
-        </ion-col>
-      </ion-row>
-      <p>Check For Description for more information</p>
-    </ion-label>
-  </ion-item>
+<ion-content class="ion-padding">
+  <ion-grid class="ion-text-center">
+    <ion-row>
+      <ion-col>
+        <ion-icon name="git-pull-request" class="request-icon"></ion-icon>
+        <p class="paragraph request">Requests</p>
+      </ion-col>
+      <ion-col>
+        <ion-img src="/assets/pending.png" class="pending-icon"></ion-img>
+        <p class="paragraph pending">Pending</p>
+      </ion-col>
+      <ion-col>
+        <ion-icon name="checkmark-circle-outline" class="completed-icon"></ion-icon>
+        <p class="paragraph completed">Completed</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="ion-text-center ion-text-capitalize ion-margin-top" *ngIf="result?.length == 0">
+    <ion-img src="/assets/nodata.png" class="img-css"></ion-img>
+    <p>
+      <span class="nodata">No data found </span>
+      <br /> Once the work is assigned to you those requests will be visible here
+      <br /> Thank You!</p>
+  </div>
+  <div *ngIf="result?.length > 0">
+    <ion-card *ngFor="let result of result">
+      <ion-item lines="none" [routerLink]="['/tabs/request/more-info', {id: result?._id}]" detail>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/427/427735.svg">
+        </ion-avatar>
+
+        <ion-label class="ion-text-capitalize">
+          <h2>{{result?.problemType}}</h2>
+          <p>{{result?.description}}</p>
+        </ion-label>
+
+      </ion-item>
+    </ion-card>
+  </div>
 </ion-content>

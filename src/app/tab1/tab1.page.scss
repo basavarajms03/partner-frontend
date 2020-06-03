@@ -2,54 +2,55 @@ ion-content ion-toolbar {
   --background: translucent;
 }
 
-ion-col,
-ion-grid {
-  padding: 0px !important;
+.paragraph {
+  margin: 0px;
+}
+
+.request-icon {
+  border: 1px solid blue;
+  background: #c5dcff;
+  border-radius: 50%;
+  padding: 10px;
+  color: blue;
+}
+
+.pending-icon {
+  border: 1px solid #ff8300;
+  background: #ffddb7;
+  border-radius: 50%;
+  padding: 10px;
+  color: #ff8300;
+  width: 38px;
+  margin: 0px auto 5px;
+}
+
+.completed-icon {
+  border: 1px solid rgb(97, 175, 80);
+  background: rgb(97, 175, 80);
+  border-radius: 50%;
+  padding: 10px;
+  color: #054923;
 }
 
 .completed {
-  color: #d14f57;
+  color: rgb(97, 175, 80);
 }
 
 .pending {
-  color: #5d89a8;
+  color: #ff8300;
 }
 
 .request {
-  color: #44af69;
-}
-
-.activities {
-  margin-bottom: 0px;
-  margin-left: 12px;
-  font-weight: bold;
-  color: #969494;
-}
-
-.startingAvatar {
-  background: #c381fe;
-  --border-radius: 0px;
-  color: white;
-  font-size: 25px;
-  text-align: center;
-  padding-top: 5px;
-}
-
-.startingAvatar-two {
-  background: #5ac7ab;
-  --border-radius: 0px;
-  color: white;
-  font-size: 25px;
-  text-align: center;
-  padding-top: 5px;
-}
-
-.date {
-  font-size: 10px;
-  text-align: right;
   color: blue;
+}
+
+.img-css {
+  width: 50%;
+  margin: 0px auto;
+}
+
+.nodata {
   font-weight: bold;
-  margin-right: 5px;
-  position: relative;
-  top: 4px;
+  font-size: 25px;
+  color: #6370ff;
 }

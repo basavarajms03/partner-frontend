@@ -1,14 +1,31 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { LoadingComponent } from 'src/app/shared/loading/loading.component';
+import { ApiService } from 'src/app/shared/api.service';
 
 @Component({
   selector: 'app-more-info',
   templateUrl: './more-info.component.html',
   styleUrls: ['./more-info.component.scss'],
+  providers: [LoadingComponent]
 })
 export class MoreInfoComponent implements OnInit {
 
-  constructor() { }
+  options;
+  result;
 
-  ngOnInit() {}
+  constructor(private actRouter: ActivatedRoute, private loadingController: LoadingComponent, private apiService: ApiService) { }
+
+  async ngOnInit() {
+    let loading = await this.loadingController.loading();
+    loading.present();
+    this.options = this.actRouter.snapshot.paramMap.get('id');
+    let params = { _id: this.options };
+    this.apiService.post("/v1/dashboard/get-raise-request", params).subscribe(async res => {
+      loading.dismiss();
+      this.result = res['data'];
+      console.log("Workorder information", this.result);
+    });
+  }
 
 }
