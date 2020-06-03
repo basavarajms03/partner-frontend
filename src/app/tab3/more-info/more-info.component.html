@@ -1,14 +1,16 @@
-<ion-header>
+<ion-header *ngIf="result">
   <ion-toolbar color="primary">
-    <ion-title>TubeLight Repair</ion-title>
+    <ion-title>{{result?.problemType}}</ion-title>
+
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
+
     <ion-buttons slot="end">
 
       <ion-button>
         <ion-icon name="notifications"></ion-icon>
-        <ion-badge color="danger" class="notification">3</ion-badge>
+        <ion-badge color="danger" class="notification">0</ion-badge>
       </ion-button>
 
       <ion-button>
@@ -18,28 +20,40 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" *ngIf="result">
   <ion-item lines="none">
     <ion-label>
       <h2 class="heading">Customer Name</h2>
-      <p>Basavaraj M Sangur</p>
+      <p class="ion-text-capitalize">{{result?.fullName}}</p>
     </ion-label>
   </ion-item>
 
   <ion-item lines="none">
     <ion-label>
       <h2 class="heading">Location</h2>
-      <p>Near Dattatreya Temple Devagiri, Haveri</p>
+      <p class="ion-text-capitalize">{{result?.address}}</p>
+    </ion-label>
+  </ion-item>
+
+  <ion-item lines="none">
+    <ion-label>
+      <h2 class="heading">Status</h2>
+      <p class="ion-text-capitalize new">{{result?.status}}</p>
+    </ion-label>
+  </ion-item>
+
+  <ion-item lines="none">
+    <ion-label>
+      <h2 class="heading">Created Date & Time</h2>
+      <p class="ion-text-capitalize">{{created_time |  date:'medium'}}</p>
     </ion-label>
   </ion-item>
 
   <ion-item lines="none">
     <ion-label>
       <h2 class="heading">Description</h2>
-      <p class="ion-text-wrap ion-text-justify">
-        It is a long established fact that a reader will be distracted by the readable content of a page when looking at
-        its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as
-        opposed to using 'Content here, content here'.
+      <p class="ion-text-wrap ion-text-justify ion-text-capitalize">
+        {{result?.description}}
       </p>
     </ion-label>
   </ion-item>
@@ -47,17 +61,15 @@
     <ion-button type="submit" class="submit" expand="block">Google Map Location</ion-button>
   </ion-item>
 
-  <ion-item lines="none">
+  <ion-item lines="none" *ngIf="result?.attachments">
     <ion-label>
       <h2 class="heading">Attachments</h2>
     </ion-label>
   </ion-item>
 
-  <ion-item lines="none">
+  <ion-item lines="none" *ngIf="result?.attachments">
     <div>
-      <img src="https://www.chitkara.edu.in/wp-content/uploads/2019/02/ELECTRICAL.jpg" class="image">
-      <img src="https://www.chitkara.edu.in/wp-content/uploads/2019/02/ELECTRICAL.jpg" class="image">
-      <img src="https://www.chitkara.edu.in/wp-content/uploads/2019/02/ELECTRICAL.jpg" class="image">
+      <img [src]="result?.attachments" class="image">
     </div>
   </ion-item>
 

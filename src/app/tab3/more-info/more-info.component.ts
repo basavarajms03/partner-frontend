@@ -13,6 +13,7 @@ export class MoreInfoComponent implements OnInit {
 
   options;
   result;
+  created_time;
 
   constructor(private actRouter: ActivatedRoute, private loadingController: LoadingComponent, private apiService: ApiService) { }
 
@@ -23,7 +24,8 @@ export class MoreInfoComponent implements OnInit {
     let params = { _id: this.options };
     this.apiService.post("/v1/dashboard/get-raise-request", params).subscribe(async res => {
       loading.dismiss();
-      this.result = res['data'];
+      this.result = res['data'][0];
+      this.created_time = new Date(res['data'][0].createdAt);
       console.log("Workorder information", this.result);
     });
   }

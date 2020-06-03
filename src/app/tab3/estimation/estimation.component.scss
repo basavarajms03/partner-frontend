@@ -18,8 +18,24 @@
     cursor: pointer;
   }
 
-  .edit-icons-info{
-      @extend .del-icons-info;
-      background: #15155f;
+  .edit-icons-info {
+    @extend .del-icons-info;
+    background: #15155f;
   }
+}
+
+.nodata-img {
+  width: 35%;
+}
+
+.heading-info {
+  margin: 0px;
+  padding: 0px;
+  color: #554d99;
+  font-weight: 700;
+}
+
+.paragraph {
+  margin: 0px;
+  font-size: 14px;
 }
