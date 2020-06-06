@@ -20,18 +20,23 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form>
+  <form [formGroup]="estimationForm" (ngSubmit)="onSubmit()">
     <div class="ion-margin ion-text-center">
       <h6 class="heading">Customer Estimation</h6>
     </div>
     <div>
-      <ion-input type="text" placeholder="Item Name" class="input"></ion-input>
+      <ion-input type="text" placeholder="Item Name" class="input" formControlName="itemName"></ion-input>
+      <ion-label class="ion-text-small" *ngIf="estimationForm.controls.itemName.invalid && estimationForm.controls.itemName.touched
+      ">Field Is Required</ion-label>
     </div>
     <div class="ion-margin-top">
-      <ion-input type="text" placeholder="Price" class="input"></ion-input>
+      <ion-input type="number" placeholder="Price" class="input" formControlName="price"></ion-input>
+      <ion-label class="ion-text-small" *ngIf="estimationForm.controls.price.invalid && estimationForm.controls.price.touched
+      ">Field Is Required</ion-label>
     </div>
     <div class="ion-margin-top ion-text-center">
       <ion-button type="submit" class="submit ion-text-capitalize">Add Item</ion-button>
+      <Span class="cancel-button" *ngIf="edit" (click)="editCancel()">Cancel</Span>
     </div>
   </form>
 
@@ -39,25 +44,29 @@
     <div class="ion-margin-top heading">Added Items</div>
   </ion-item>
 
-  <div class="ion-text-center">
+  <div class="ion-text-center" *ngIf="itemInfo?.items.length == 0">
     <img src="/assets/estimate-icons.png" class="nodata-img">
     <h6 class="heading-info">No Estimation Added</h6>
     <p class="ion-text-capitalize paragraph">Add Your Complete Estimation with Full Name of The item</p>
   </div>
 
-  <!-- <ion-card>
-    <ion-item lines="none">
+  <div *ngIf="itemInfo?.items.length > 0">
+    <ion-card *ngFor="let items of itemInfo.items">
+      <ion-item lines="none">
 
-      <ion-label>
-        <h2>Item Name</h2>
-        <p>Price</p>
-      </ion-label>
+        <ion-label>
+          <h2>{{items?.itemName}}</h2>
+          <p><b>Rs. </b>{{items?.price}}</p>
+        </ion-label>
 
-      <div class="icons">
-        <ion-icon name="trash-outline" class="del-icons-info"></ion-icon>
-        <ion-icon name="create-outline" class="edit-icons-info"></ion-icon>
-      </div>
+        <div class="icons">
+          <ion-icon name="trash-outline" class="del-icons-info" (click)="deleteItem(items?._id)">
+          </ion-icon>
+          <ion-icon name="create-outline" class="edit-icons-info"
+            (click)="itemEdit(items?.itemName, items?.price, items?._id)"></ion-icon>
+        </div>
 
-    </ion-item>
-  </ion-card> -->
+      </ion-item>
+    </ion-card>
+  </div>
 </ion-content>
