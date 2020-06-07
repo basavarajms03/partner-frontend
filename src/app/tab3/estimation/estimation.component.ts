@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/shared/api.service';
 import { LoadingComponent } from 'src/app/shared/loading/loading.component';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-estimation',
@@ -17,9 +18,10 @@ export class EstimationComponent implements OnInit {
   itemInfo;
   edit = false;
   editId_info;
+  total = 0;
 
   constructor(private actRouter: ActivatedRoute, private apiService:
-    ApiService, private loading: LoadingComponent) {
+    ApiService, private loading: LoadingComponent, private createAlert: AlertController) {
   }
 
   async ngOnInit() {
@@ -42,6 +44,7 @@ export class EstimationComponent implements OnInit {
     this.apiService.post('/v1/dashboard/get-estimation', parmInfo).subscribe(res => {
       createLoading.dismiss();
       this.itemInfo = res['data'][0];
+      this.total = this.itemInfo.items.reduce((sum, prop) => +sum + +prop.price, 0);
     });
   }
 
@@ -72,9 +75,6 @@ export class EstimationComponent implements OnInit {
       let createLoading = await this.loading.loading();
       createLoading.present();
 
-      this.edit = false;
-      this.editId_info = "";
-
       let parmaInfo = {
         "email": localStorage.getItem('email'),
         "_id": this.editId_info,
@@ -87,6 +87,10 @@ export class EstimationComponent implements OnInit {
 
       this.apiService.post('/v1/dashboard/update-estimation', parmaInfo).subscribe(res => {
         createLoading.dismiss();
+
+        this.edit = false;
+        this.editId_info = "";
+
         if (res['code'] == "200") {
           this.estimationForm.reset();
           this.ngOnInit();
@@ -130,6 +134,47 @@ export class EstimationComponent implements OnInit {
         this.ngOnInit();
       }
     });
+  }
+
+  async finalSubmission() {
+    let createLoading = await this.loading.loading();
+    createLoading.present();
+
+    let parmaInfo = {
+      filter: {
+        "email": localStorage.getItem('email'),
+        "product_id": this.params
+      },
+      update: {
+        finalSubmission: true
+      }
+    };
+
+    this.apiService.post('/v1/dashboard/updateOne', parmaInfo).subscribe(res => {
+      createLoading.dismiss();
+      if (res['code'] == "200") {
+        this.estimationForm.reset();
+        this.ngOnInit();
+      }
+    });
+  }
+
+  async promptAlert() {
+    let createAlert = this.createAlert.create({
+      header: "Alert!",
+      subHeader: "Once you click on submit estimation, You are not able to change the estimation",
+      buttons: [
+        {
+          text: "Cancel",
+          role: "cancel",
+        },
+        {
+          text: "Confirm",
+          handler: () => this.finalSubmission()
+        }
+      ]
+    });
+    (await createAlert).present();
   }
 
 }

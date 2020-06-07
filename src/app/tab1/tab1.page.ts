@@ -23,7 +23,6 @@ export class Tab1Page implements OnInit {
     this.apiService.post("/v1/dashboard/get-raise-request", params).subscribe(async res => {
       loading.dismiss();
       this.result = res['data'];
-      console.log("Workorder information", this.result);
     });
 
   }

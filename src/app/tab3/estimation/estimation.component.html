@@ -25,26 +25,30 @@
       <h6 class="heading">Customer Estimation</h6>
     </div>
     <div>
-      <ion-input type="text" placeholder="Item Name" class="input" formControlName="itemName"></ion-input>
+      <ion-input type="text" placeholder="Item Name" class="input" formControlName="itemName"
+        [disabled]="itemInfo?.finalSubmission"></ion-input>
       <ion-label class="ion-text-small" *ngIf="estimationForm.controls.itemName.invalid && estimationForm.controls.itemName.touched
       ">Field Is Required</ion-label>
     </div>
     <div class="ion-margin-top">
-      <ion-input type="number" placeholder="Price" class="input" formControlName="price"></ion-input>
+      <ion-input type="number" placeholder="Price" class="input" formControlName="price"
+        [disabled]="itemInfo?.finalSubmission"></ion-input>
       <ion-label class="ion-text-small" *ngIf="estimationForm.controls.price.invalid && estimationForm.controls.price.touched
       ">Field Is Required</ion-label>
     </div>
     <div class="ion-margin-top ion-text-center">
-      <ion-button type="submit" class="submit ion-text-capitalize">Add Item</ion-button>
+      <ion-button type="submit" class="submit ion-text-capitalize"
+        [disabled]="!estimationForm.valid || itemInfo?.finalSubmission">Add Item</ion-button>
       <Span class="cancel-button" *ngIf="edit" (click)="editCancel()">Cancel</Span>
     </div>
   </form>
 
   <ion-item lines="none">
     <div class="ion-margin-top heading">Added Items</div>
+    <div class="ion-margin-top ion-margin-start heading total">Total Est = {{total}}</div>
   </ion-item>
 
-  <div class="ion-text-center" *ngIf="itemInfo?.items.length == 0">
+  <div class="ion-text-center" *ngIf="itemInfo?.items.length == 0 || !itemInfo">
     <img src="/assets/estimate-icons.png" class="nodata-img">
     <h6 class="heading-info">No Estimation Added</h6>
     <p class="ion-text-capitalize paragraph">Add Your Complete Estimation with Full Name of The item</p>
@@ -59,7 +63,7 @@
           <p><b>Rs. </b>{{items?.price}}</p>
         </ion-label>
 
-        <div class="icons">
+        <div class="icons" *ngIf="!itemInfo?.finalSubmission">
           <ion-icon name="trash-outline" class="del-icons-info" (click)="deleteItem(items?._id)">
           </ion-icon>
           <ion-icon name="create-outline" class="edit-icons-info"
@@ -68,5 +72,9 @@
 
       </ion-item>
     </ion-card>
+    <div class="ion-text-center" *ngIf="!itemInfo?.finalSubmission">
+      <ion-button type="submit" class="submit ion-text-capitalize final-submission" (click)="promptAlert()">Submit
+        Estimation</ion-button>
+    </div>
   </div>
 </ion-content>

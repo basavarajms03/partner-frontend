@@ -1,13 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-title>
-      Requests Assigned
+      Workorder Assigned
     </ion-title>
     <ion-buttons slot="end">
 
       <ion-button>
         <ion-icon name="notifications"></ion-icon>
-        <ion-badge color="danger" class="notification">3</ion-badge>
+        <ion-badge color="danger" class="notification">0</ion-badge>
       </ion-button>
 
       <ion-button>
@@ -19,30 +19,26 @@
 </ion-header>
 
 <ion-content>
-  <ion-card [routerLink]="['/tabs/request/more-info']">
-    <ion-item lines="none">
-      <ion-avatar slot="start">
-        <img src="https://image.flaticon.com/icons/svg/399/399340.svg">
-      </ion-avatar>
+  <div class="ion-text-center ion-text-capitalize ion-margin-top" *ngIf="result?.length == 0">
+    <ion-img src="/assets/nodata.png" class="img-css"></ion-img>
+    <p>
+      <span class="nodata">No data found </span>
+      <br /> Once the work is assigned to you those requests will be visible here
+      <br /> Thank You!</p>
+  </div>
+  <div *ngIf="result?.length > 0">
+    <ion-card *ngFor="let result of result">
+      <ion-item lines="none" [routerLink]="['/tabs/request/more-info', {id: result?._id}]" detail>
+        <ion-avatar slot="start">
+          <img src="https://image.flaticon.com/icons/svg/427/427735.svg">
+        </ion-avatar>
 
-      <ion-label class="ion-text-capitalize">
-        <h2>Tubelight Repair</h2>
-        <p>Check for description for more decription please ckuc</p>
-      </ion-label>
+        <ion-label class="ion-text-capitalize">
+          <h2>{{result?.problemType}}</h2>
+          <p>{{result?.description}}</p>
+        </ion-label>
 
-    </ion-item>
-  </ion-card>
-  <ion-card [routerLink]="">
-    <ion-item lines="none">
-      <ion-avatar slot="start">
-        <img src="https://image.flaticon.com/icons/svg/427/427735.svg">
-      </ion-avatar>
-
-      <ion-label class="ion-text-capitalize">
-        <h2>Electricity Repair</h2>
-        <p>Click Here For More Info</p>
-      </ion-label>
-
-    </ion-item>
-  </ion-card>
+      </ion-item>
+    </ion-card>
+  </div>
 </ion-content>
