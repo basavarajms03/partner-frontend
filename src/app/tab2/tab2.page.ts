@@ -15,6 +15,7 @@ export class Tab2Page implements OnInit {
   category = "personal";
   changePassword: FormGroup;
   profileData: any;
+  notification_count: any;
 
   constructor(private alert: AlertComponent, private loading: LoadingComponent, private apiService: ApiService) { }
 
@@ -34,6 +35,18 @@ export class Tab2Page implements OnInit {
     this.apiService.post('/v1/auth/profile', params).subscribe(profileData => {
       loading.dismiss();
       this.profileData = profileData['data'];
+    });
+
+    let notificationParams = {
+      "filter": {
+        "email": {
+          "$in": [localStorage.getItem('email')]
+        }
+      }
+    };
+
+    this.apiService.post('/v1/dashboard/getall-notification', notificationParams).subscribe(res => {
+      this.notification_count = res['data'].length;
     });
 
   }

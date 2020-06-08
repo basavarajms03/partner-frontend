@@ -19,6 +19,8 @@ export class EstimationComponent implements OnInit {
   edit = false;
   editId_info;
   total = 0;
+  estimation_id;
+  notification_count;
 
   constructor(private actRouter: ActivatedRoute, private apiService:
     ApiService, private loading: LoadingComponent, private createAlert: AlertController) {
@@ -46,6 +48,19 @@ export class EstimationComponent implements OnInit {
       this.itemInfo = res['data'][0];
       this.total = this.itemInfo.items.reduce((sum, prop) => +sum + +prop.price, 0);
     });
+
+    let notificationParams = {
+      "filter": {
+        "email": {
+          "$in": [localStorage.getItem('email')]
+        }
+      }
+    };
+
+    this.apiService.post('/v1/dashboard/getall-notification', notificationParams).subscribe(res => {
+      this.notification_count = res['data'].length;
+    });
+
   }
 
   async onSubmit() {
@@ -66,6 +81,7 @@ export class EstimationComponent implements OnInit {
       this.apiService.post('/v1/dashboard/add-estimation', parmaInfo).subscribe(res => {
         createLoading.dismiss();
         if (res['code'] == "200") {
+          this.estimation_id = res['data']._id;
           this.estimationForm.reset();
           this.ngOnInit();
         }
@@ -87,6 +103,9 @@ export class EstimationComponent implements OnInit {
 
       this.apiService.post('/v1/dashboard/update-estimation', parmaInfo).subscribe(res => {
         createLoading.dismiss();
+
+        this.estimation_id = res['data']._id;
+        console.log("estimation_id", this.estimation_id);
 
         this.edit = false;
         this.editId_info = "";
@@ -145,6 +164,7 @@ export class EstimationComponent implements OnInit {
         "email": localStorage.getItem('email'),
         "product_id": this.params
       },
+      estimation_id: this.estimation_id,
       update: {
         finalSubmission: true
       }
