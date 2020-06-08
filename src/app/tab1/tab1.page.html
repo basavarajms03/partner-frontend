@@ -43,6 +43,10 @@
       <br /> Thank You!</p>
   </div>
   <div *ngIf="result?.length > 0">
+    <div id="chart" class="ion-margin-top">
+      <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [labels]="chartOptions.labels"
+        [responsive]="chartOptions.responsive"></apx-chart>
+    </div>
     <ion-card *ngFor="let result of result">
       <ion-item lines="none" [routerLink]="['/tabs/request/more-info', {id: result?._id}]" detail>
         <ion-avatar slot="start">

@@ -7,6 +7,7 @@ import { Tab1Page } from './tab1.page';
 import { ChartsModule } from "ng2-charts";
 import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from '../shared/api.service';
+import { NgApexchartsModule } from "ng-apexcharts";
 
 @NgModule({
   imports: [
@@ -15,9 +16,10 @@ import { ApiService } from '../shared/api.service';
     FormsModule,
     RouterModule.forChild([{ path: '', component: Tab1Page }]),
     ChartsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgApexchartsModule
   ],
   declarations: [Tab1Page],
   providers: [ApiService]
 })
-export class Tab1PageModule {}
+export class Tab1PageModule { }
