@@ -2,7 +2,7 @@ import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { Chart } from "chart.js";
 import { ApiService } from '../shared/api.service';
 import { LoadingComponent } from '../shared/loading/loading.component';
-import { ApexNonAxisChartSeries, ApexChart, ApexResponsive, ChartComponent, ApexFill } from 'ng-apexcharts';
+import { ApexNonAxisChartSeries, ApexChart, ApexResponsive, ChartComponent, ApexLegend, ApexPlotOptions } from 'ng-apexcharts';
 
 @Component({
   selector: 'app-tab1',
@@ -19,7 +19,8 @@ export class Tab1Page implements OnInit {
     chart: ApexChart;
     responsive: ApexResponsive[];
     labels: any;
-    fill: ApexFill;
+    legend: ApexLegend;
+    plotOptions: ApexPlotOptions;
   }>;
 
   constructor(private apiService: ApiService, private loading: LoadingComponent) { }
@@ -39,13 +40,32 @@ export class Tab1Page implements OnInit {
           breakpoint: 3000,
           options: {
             legend: {
-              position: "right"
+              position: "right",
             }
           }
         }
       ],
-      fill: {
-        colors: ['#F44336', '#E91E63', '#9C27B0']
+      legend: {
+        horizontalAlign: 'center',
+        onItemClick: {
+          toggleDataSeries: false
+        },
+        onItemHover: {
+          highlightDataSeries: false
+        }
+      },
+      plotOptions: {
+        pie: {
+          donut: {
+            labels: {
+              total: {
+                formatter: (w) => {
+                  return w.w.globals.series[w.seriesIndex]
+                }
+              }
+            }
+          }
+        }
       }
     };
 
