@@ -38,6 +38,10 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('email', response['data'].email);
         localStorage.setItem('phoneNumber', response['data'].phoneNumber);
 
+        if (response['data'].email === "naduvinamanimanjunath@gmail.com") {
+          localStorage.setItem('admin', "true");
+        }
+
         loading.dismiss();
         this.form.reset();
         this.router.navigate(['/tabs']);
