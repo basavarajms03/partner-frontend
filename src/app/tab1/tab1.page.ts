@@ -14,6 +14,7 @@ import { ApexNonAxisChartSeries, ApexChart, ApexResponsive, ChartComponent, Apex
 export class Tab1Page implements OnInit {
   notification_count: any;
   @ViewChild("chart", { static: false }) chart: ChartComponent;
+  admin = false;
   public chartOptions: Partial<{
     series: ApexNonAxisChartSeries;
     chart: ApexChart;
@@ -28,55 +29,70 @@ export class Tab1Page implements OnInit {
 
   async ngOnInit() {
 
-    this.chartOptions = {
-      series: [0, 0, 1],
-      chart: {
-        type: "donut",
-        width: 300
-      },
-      labels: ["Assigned", "Pending", "Completed"],
-      responsive: [
-        {
-          breakpoint: 3000,
-          options: {
-            legend: {
-              position: "right",
+    if (localStorage.getItem('admin') === "true") {
+      this.admin = true;
+    } else {
+      this.admin = false;
+    }
+
+    console.log("admin", this.admin);
+
+    // If the user is not admin
+    if (!this.admin) {
+      this.chartOptions = {
+        series: [0, 0, 1],
+        chart: {
+          type: "donut",
+          width: 300
+        },
+        labels: ["Assigned", "Pending", "Completed"],
+        responsive: [
+          {
+            breakpoint: 3000,
+            options: {
+              legend: {
+                position: "right",
+              }
             }
           }
-        }
-      ],
-      legend: {
-        horizontalAlign: 'center',
-        onItemClick: {
-          toggleDataSeries: false
+        ],
+        legend: {
+          horizontalAlign: 'center',
+          onItemClick: {
+            toggleDataSeries: false
+          },
+          onItemHover: {
+            highlightDataSeries: false
+          }
         },
-        onItemHover: {
-          highlightDataSeries: false
-        }
-      },
-      plotOptions: {
-        pie: {
-          donut: {
-            labels: {
-              total: {
-                formatter: (w) => {
-                  return w.w.globals.series[w.seriesIndex]
+        plotOptions: {
+          pie: {
+            donut: {
+              labels: {
+                total: {
+                  formatter: (w) => {
+                    return w.w.globals.series[w.seriesIndex]
+                  }
                 }
               }
             }
           }
         }
-      }
-    };
+      };
 
-    let params = { email: localStorage.getItem('email') };
-    let loading = await this.loading.loading();
-    loading.present();
+      let params = { email: localStorage.getItem('email') };
+      let loading = await this.loading.loading();
+      loading.present();
 
-    this.apiService.post("/v1/dashboard/get-raise-request", params).subscribe(async res => {
-      loading.dismiss();
-      this.result = res['data'];
-    });
+      this.apiService.post("/v1/dashboard/get-raise-request", params).subscribe(async res => {
+        loading.dismiss();
+        this.result = res['data'];
+      });
+
+      //if the user is admin
+    } else {
+
+    }
 
     let notificationParams = {
       "filter": {
