@@ -20,7 +20,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding" *ngIf="result">
+<ion-content class="ion-padding" *ngIf="result && !assignwork">
   <ion-item lines="none">
     <ion-label>
       <h2 class="heading">Customer Name</h2>
@@ -49,6 +49,13 @@
     </ion-label>
   </ion-item>
 
+  <ion-item lines="none" *ngIf="result?.assignee_email">
+    <ion-label>
+      <h2 class="heading">Assignee Name</h2>
+      <p>{{result?.assignee_email}}</p>
+    </ion-label>
+  </ion-item>
+
   <ion-item lines="none">
     <ion-label>
       <h2 class="heading">Description</h2>
@@ -58,7 +65,7 @@
     </ion-label>
   </ion-item>
   <ion-item lines="none">
-    <ion-button type="submit" class="submit" expand="block">Google Map Location</ion-button>
+    <ion-button type="submit" class="submit  ion-text-capitalize" expand="block">Google Map Location</ion-button>
   </ion-item>
 
   <ion-item lines="none" *ngIf="result?.attachments">
@@ -73,7 +80,7 @@
     </div>
   </ion-item>
 
-  <ion-grid>
+  <ion-grid *ngIf="!admin">
     <ion-row>
       <ion-col size="6" size-sm size-md>
         <div>
@@ -89,4 +96,40 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <ion-grid *ngIf="admin && result?.status == 'New'" class="grid-data">
+    <ion-row *ngIf="!assignwork">
+      <ion-col size="6">
+        <ion-button type="button" class="submit assign-work ion-text-capitalize" (click)="assignworkinfo()">Assign Work
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button type="button" class="submit reject-work ion-text-capitalize" (click)="rejectWork()">Reject Work
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-content *ngIf="assignwork">
+  <form class="ion-margin" [formGroup]="assignForm" (ngSubmit)="assignSubmit()">
+    <ion-item lines="inset">
+      <ion-label>Select a user</ion-label>
+      <ion-select formControlName="assignee_email">
+        <ion-select-option value="basavaraj.sangur03@gmail.com">basavaraj.sangur03@gmail.com</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-grid class="ion-text-center">
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" class="submit m-t-3 ion-margin-top ion-text-capitalize">Assign To User</ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button type="submit" class="submit reject-work m-t-3 ion-margin-top ion-text-capitalize"
+            (click)="cancelWork()">Cancel
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 </ion-content>

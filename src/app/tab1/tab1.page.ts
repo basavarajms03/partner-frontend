@@ -35,64 +35,72 @@ export class Tab1Page implements OnInit {
       this.admin = false;
     }
 
-    console.log("admin", this.admin);
-
-    // If the user is not admin
-    if (!this.admin) {
-      this.chartOptions = {
-        series: [0, 0, 1],
-        chart: {
-          type: "donut",
-          width: 300
-        },
-        labels: ["Assigned", "Pending", "Completed"],
-        responsive: [
-          {
-            breakpoint: 3000,
-            options: {
-              legend: {
-                position: "right",
-              }
+    this.chartOptions = {
+      series: [0, 0, 1],
+      chart: {
+        type: "donut",
+        width: 250
+      },
+      labels: ["Pending", "Assigned", "Completed"],
+      responsive: [
+        {
+          breakpoint: 3000,
+          options: {
+            legend: {
+              position: "right",
             }
           }
-        ],
-        legend: {
-          horizontalAlign: 'center',
-          onItemClick: {
-            toggleDataSeries: false
-          },
-          onItemHover: {
-            highlightDataSeries: false
-          }
+        }
+      ],
+      legend: {
+        horizontalAlign: 'center',
+        onItemClick: {
+          toggleDataSeries: false
         },
-        plotOptions: {
-          pie: {
-            donut: {
-              labels: {
-                total: {
-                  formatter: (w) => {
-                    return w.w.globals.series[w.seriesIndex]
-                  }
+        onItemHover: {
+          highlightDataSeries: false
+        }
+      },
+      plotOptions: {
+        pie: {
+          donut: {
+            labels: {
+              total: {
+                formatter: (w) => {
+                  return w.w.globals.series[w.seriesIndex]
                 }
               }
             }
           }
         }
+      }
+    };
+
+    let params;
+    if (!this.admin) {
+      params = {
+        filter: {
+          assignee_email: localStorage.getItem('email')
+        },
+        limit: 2,
+        skip: 0
       };
-
-      let params = { email: localStorage.getItem('email') };
-      let loading = await this.loading.loading();
-      loading.present();
-
-      this.apiService.post("/v1/dashboard/get-raise-request", params).subscribe(async res => {
-        loading.dismiss();
-        this.result = res['data'];
-      });
-
-      //if the user is admin
     } else {
-
+      params = {
+        filter: {
+          acknowledge_email: localStorage.getItem('email')
+        },
+        limit: 2,
+        skip: 0
+      };
     }
+    let loading = await this.loading.loading();
+    loading.present();
+
+    this.apiService.post("/v1/dashboard/get-raise-request", params).subscribe(async res => {
+      loading.dismiss();
+      this.result = res['data'];
+    });
 
     let notificationParams = {
       "filter": {

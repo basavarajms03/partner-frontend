@@ -69,12 +69,34 @@
 
   <!-- If the user is admin -->
   <div *ngIf="admin">
-    <div class="ion-text-center ion-text-capitalize ion-margin-top">
+    <div class="ion-text-center ion-text-capitalize ion-margin-top" *ngIf="result?.length == 0">
       <ion-img src="/assets/nodata.png" class="img-css"></ion-img>
       <p>
         <span class="nodata">No data found </span>
         <br /> Once the work is assigned to you those requests will be visible here
         <br /> Thank You!</p>
+    </div>
+
+    <div *ngIf="result?.length > 0">
+      <div id="chart" class="ion-margin-top">
+        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [labels]="chartOptions.labels"
+          [responsive]="chartOptions.responsive" [legend]="chartOptions.legend"></apx-chart>
+      </div>
+
+      <h6 class="heading ion-margin-top ion-margin-start">Recent Assigned Workorders</h6>
+      <ion-card *ngFor="let result of result">
+        <ion-item lines="none" [routerLink]="['/tabs/request/more-info', {id: result?._id}]" detail>
+          <ion-avatar slot="start">
+            <img src="/assets/workorder.png">
+          </ion-avatar>
+
+          <ion-label class="ion-text-capitalize">
+            <h2>{{result?.problemType}}</h2>
+            <p>{{result?.description}}</p>
+          </ion-label>
+
+        </ion-item>
+      </ion-card>
     </div>
   </div>
 </ion-content>

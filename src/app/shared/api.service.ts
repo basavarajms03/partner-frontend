@@ -8,8 +8,15 @@ import { HttpClient } from "@angular/common/http";
 export class ApiService {
 
   apiUrl = environment.apiBaseUrl;
+  admin = false;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    if (localStorage.getItem('admin') === "true") {
+      this.admin = true;
+    } else {
+      this.admin = false;
+    }
+  }
 
   getToken() {
     return localStorage.getItem('Token');
