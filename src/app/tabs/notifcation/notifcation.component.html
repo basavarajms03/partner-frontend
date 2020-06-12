@@ -1,3 +1,26 @@
-<p>
-  notifcation works!
-</p>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Notification</ion-title>
+
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content *ngIf="notifications?.length != 0">
+  <div class="ion-margin-top">
+    <ion-item lines="full" detail [routerLink]="[notification.url+'/more-info', 
+      {id: notification.estimation_id, fromNotification: true, notification_id: notification?._id}]"
+      *ngFor="let notification of notifications">
+      <ion-avatar slot="start" class="avatar" [ngStyle]="{'background': background}"
+        [innerHTML]="code[notification.email[0][0]].code">
+      </ion-avatar>
+      <ion-label>
+        <p class="notification-heading">{{notification?.message}} By</p>
+        <p class="notification-by">{{notification.email[0]}}</p>
+      </ion-label>
+    </ion-item>
+  </div>
+</ion-content>
