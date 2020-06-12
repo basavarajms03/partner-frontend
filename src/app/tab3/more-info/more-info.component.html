@@ -8,7 +8,7 @@
 
     <ion-buttons slot="end">
 
-      <ion-button>
+      <ion-button [routerLink]="['/tabs/request/notification']">
         <ion-icon name="notifications"></ion-icon>
         <ion-badge color="danger" class="notification">{{notification_count}}</ion-badge>
       </ion-button>
@@ -38,7 +38,13 @@
   <ion-item lines="none">
     <ion-label>
       <h2 class="heading">Status</h2>
-      <p class="ion-text-capitalize new">{{result?.status}}</p>
+      <p class="ion-text-capitalize" [ngClass]="[
+      result.status === 'Rejected'?  'rejected' : '',
+      result.status === 'New'?  'new' : '',
+      result.status === 'In-Progress'?  'inProgress' : '',
+      result.status === 'Active'?  'active' : '',
+      result.status === 'Completed'?  'resolved' : ''
+      ]">{{result?.status}}</p>
     </ion-label>
   </ion-item>
 
