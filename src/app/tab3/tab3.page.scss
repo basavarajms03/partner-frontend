@@ -1,3 +1,32 @@
 ion-content ion-toolbar {
   --background: translucent;
 }
+
+.rejected {
+  --background: #660000;
+  --color: white !important;
+}
+
+.new {
+  --background: #e55524 !important;
+  --color: white !important;
+}
+
+.inProgress {
+  --background: #1182c5 !important;
+  --color: white !important;
+}
+
+.active {
+  --background: #8d191c !important;
+  --color: white !important;
+}
+
+.resolved {
+  --background: #136b36 !important;
+  --color: white !important;
+}
+
+.sub-description {
+  color: white;
+}

@@ -39,9 +39,9 @@ export class Tab1Page implements OnInit {
       series: [0, 0, 1],
       chart: {
         type: "donut",
-        width: 250
+        width: 270
       },
-      labels: ["Pending", "Assigned", "Completed"],
+      labels: ["Pending", "Assigned", "Completed", "Rejected"],
       responsive: [
         {
           breakpoint: 3000,
