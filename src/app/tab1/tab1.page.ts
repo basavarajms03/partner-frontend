@@ -115,8 +115,4 @@ export class Tab1Page implements OnInit {
     });
 
   }
-
-  gotoNext($event) {
-    console.log("Event Target Information", $event);
-  }
 }
