@@ -19,7 +19,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" *ngIf="!admin">
   <form [formGroup]="estimationForm" (ngSubmit)="onSubmit()">
     <div class="ion-margin ion-text-center">
       <h6 class="heading">Customer Estimation</h6>
@@ -77,4 +77,30 @@
         Estimation</ion-button>
     </div>
   </div>
+</ion-content>
+
+<ion-content *ngIf="admin && itemInfo" class="ion-padding">
+  <ion-grid>
+    <ion-row class="ion-text-center table-header">
+      <ion-col> <b>Item Name</b></ion-col>
+      <ion-col> <b>Price In Rs</b></ion-col>
+    </ion-row>
+    <ion-row *ngFor="let items of itemInfo.items">
+      <ion-col>{{items?.itemName}}</ion-col>
+      <ion-col class="ion-text-center">{{items?.price}}</ion-col>
+    </ion-row>
+    <ion-row class="total-estimations">
+      <ion-col>Total Estimation</ion-col>
+      <ion-col class="ion-text-center">Rs. {{total}}/-</ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col></ion-col> <!-- Need to add the button for rejection-->
+      <ion-col size="6">
+        <ion-button type="submit" class="submit start-work ion-text-capitalize" (click)="startworkorder()">Start Work
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

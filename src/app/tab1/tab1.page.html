@@ -52,14 +52,21 @@
       </div>
       <h6 class="heading ion-margin-top ion-margin-start">Recent Assigned Workorders</h6>
       <ion-card *ngFor="let result of result">
-        <ion-item lines="none" [routerLink]="['/tabs/request/more-info', {id: result?._id}]" detail>
+        <ion-item lines="none" [routerLink]="['/tabs/request/more-info', {id: result?._id}]" [ngClass]="[
+        result.status === 'Rejected'?  'rejected' : '',
+        result.status === 'Start Work'?  'startwork' : '',
+      result.status === 'New'?  'new' : '',
+      result.status === 'In-Progress'?  'inProgress' : '',
+      result.status === 'Active'?  'active' : '',
+      result.status === 'Completed'?  'resolved' : ''
+      ]">
           <ion-avatar slot="start">
             <img src="/assets/workorder.png">
           </ion-avatar>
 
           <ion-label class="ion-text-capitalize">
             <h2>{{result?.problemType}}</h2>
-            <p>{{result?.description}}</p>
+            <p class="sub-description">{{result?.description}}</p>
           </ion-label>
 
         </ion-item>
@@ -86,6 +93,7 @@
       <ion-card *ngFor="let result of result">
         <ion-item lines="none" [routerLink]="['/tabs/request/more-info', {id: result?._id}]" [ngClass]="[
         result.status === 'Rejected'?  'rejected' : '',
+        result.status === 'Start Work'?  'startwork' : '',
         result.status === 'New'?  'new' : '',
         result.status === 'In-Progress'?  'inProgress' : '',
         result.status === 'Active'?  'active' : '',

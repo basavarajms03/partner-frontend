@@ -10,13 +10,34 @@ import { LoadingComponent } from '../shared/loading/loading.component';
 })
 export class Tab3Page implements OnInit {
   notification_count: any;
+  admin;
 
   constructor(private apiService: ApiService, private loading: LoadingComponent) { }
   result;
 
   async ngOnInit() {
 
-    let params = { email: localStorage.getItem('email') };
+    if (localStorage.getItem('admin') === "true") {
+      this.admin = true;
+    } else {
+      this.admin = false;
+    }
+
+    let params;
+    if (!this.admin) {
+      params = {
+        filter: {
+          assignee_email: localStorage.getItem('email')
+        }
+      };
+    } else {
+      params = {
+        filter: {
+          acknowledge_email: localStorage.getItem('email')
+        }
+      };
+    }
+
     let loading = await this.loading.loading();
     loading.present();
 

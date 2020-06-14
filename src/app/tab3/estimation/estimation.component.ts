@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ApiService } from 'src/app/shared/api.service';
 import { LoadingComponent } from 'src/app/shared/loading/loading.component';
@@ -21,14 +21,22 @@ export class EstimationComponent implements OnInit {
   total = 0;
   estimation_id;
   notification_count;
+  admin = false;
 
   constructor(private actRouter: ActivatedRoute, private apiService:
-    ApiService, private loading: LoadingComponent, private createAlert: AlertController) {
+    ApiService, private loading: LoadingComponent, private createAlert: AlertController,
+    private router: Router) {
   }
 
   async ngOnInit() {
 
     this.params = this.actRouter.snapshot.paramMap.get('_id');
+
+    if (localStorage.getItem('admin') == "true") {
+      this.admin = true;
+    } else {
+      this.admin = false;
+    }
 
     this.estimationForm = new FormGroup({
       itemName: new FormControl(null, [Validators.required, Validators.min(3), Validators.max(50)]),
@@ -38,10 +46,19 @@ export class EstimationComponent implements OnInit {
     let createLoading = await this.loading.loading();
     (createLoading).present();
 
-    let parmInfo = {
-      email: localStorage.getItem('email'),
-      product_id: this.params
-    };
+    let parmInfo;
+
+    if (!this.admin) {
+      parmInfo = {
+        email: localStorage.getItem('email'),
+        product_id: this.params
+      };
+    } else {
+      parmInfo = {
+        _id: this.actRouter.snapshot.paramMap.get('id'),
+        finalSubmission: true
+      };
+    }
 
     this.apiService.post('/v1/dashboard/get-estimation', parmInfo).subscribe(res => {
       createLoading.dismiss();
@@ -165,6 +182,7 @@ export class EstimationComponent implements OnInit {
         "product_id": this.params
       },
       estimation_id: this.estimation_id,
+      flag: "final_est",
       update: {
         finalSubmission: true
       }
@@ -195,6 +213,33 @@ export class EstimationComponent implements OnInit {
       ]
     });
     (await createAlert).present();
+  }
+
+  async startworkorder() {
+
+    let parms = {
+      filter: {
+        assignee_email: this.itemInfo.email,
+        _id: this.itemInfo.product_id
+      },
+      created_email: this.itemInfo.email,
+      estimation_id: this.itemInfo._id,
+      update: {
+        startWork: true,
+        status: "Start Work"
+      }
+    }
+
+    let createLoading = await this.loading.loading();
+    (createLoading).present();
+
+    this.apiService.post('/v1/dashboard/startworkorder', parms).subscribe(res => {
+      createLoading.dismiss();
+      if (res['code'] == "200") {
+        this.router.navigate(['/tabs/dashboard']);
+      }
+    });
+
   }
 
 }

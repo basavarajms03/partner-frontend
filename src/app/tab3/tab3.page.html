@@ -32,6 +32,7 @@
     <ion-card *ngFor="let result of result">
       <ion-item lines="none" [routerLink]="['/tabs/request/more-info', {id: result?._id}]" [ngClass]="[
       result.status === 'Rejected'?  'rejected' : '',
+      result.status === 'Start Work'?  'startwork' : '',
       result.status === 'New'?  'new' : '',
       result.status === 'In-Progress'?  'inProgress' : '',
       result.status === 'Active'?  'active' : '',

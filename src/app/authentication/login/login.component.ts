@@ -40,6 +40,8 @@ export class LoginComponent implements OnInit {
 
         if (response['data'].email === "naduvinamanimanjunath@gmail.com") {
           localStorage.setItem('admin', "true");
+        } else {
+          localStorage.setItem('admin', 'false');
         }
 
         loading.dismiss();

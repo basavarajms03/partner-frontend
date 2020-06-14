@@ -24,7 +24,11 @@ export class MoreInfoComponent implements OnInit {
 
   async ngOnInit() {
 
-    this.admin = this.apiService.admin;
+    if (localStorage.getItem('admin') === "true") {
+      this.admin = true;
+    } else {
+      this.admin = false;
+    }
 
     let loading = await this.loadingController.loading();
     loading.present();
@@ -103,6 +107,58 @@ export class MoreInfoComponent implements OnInit {
       await (await loading).dismiss();
       this.ngOnInit();
     });
+  }
+
+  async startWork() {
+
+    let params = {
+      filter: {
+        _id: this.result._id
+      },
+      flag: 'inProgress',
+      user_email: this.result.created_email,
+      created_email: this.result.assignee_email,
+      update: {
+        status: "In-Progress"
+      },
+    }
+
+    let createLoading = await this.loadingController.loading();
+    (createLoading).present();
+
+    this.apiService.post('/v1/dashboard/startworkorder', params).subscribe(res => {
+      createLoading.dismiss();
+      if (res['code'] == "200") {
+        this.ngOnInit();
+      }
+    });
+
+  }
+
+  async completeWork() {
+
+    let params = {
+      filter: {
+        _id: this.result._id
+      },
+      flag: 'Completed',
+      user_email: this.result.created_email,
+      created_email: this.result.assignee_email,
+      update: {
+        status: "Completed"
+      },
+    }
+
+    let createLoading = await this.loadingController.loading();
+    (createLoading).present();
+
+    this.apiService.post('/v1/dashboard/startworkorder', params).subscribe(res => {
+      createLoading.dismiss();
+      if (res['code'] == "200") {
+        this.ngOnInit();
+      }
+    });
+
   }
 
 }

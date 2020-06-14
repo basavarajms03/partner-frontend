@@ -46,16 +46,29 @@
 
 .new {
   color: #e55524 !important;
+  font-weight: bold;
 }
 
 .inProgress {
   color: #1182c5 !important;
+  font-weight: bold;
 }
 
 .active {
   color: #8d191c !important;
+  font-weight: bold;
 }
 
 .resolved {
   color: #136b36 !important;
+  font-weight: bold;
+}
+
+.check-estimation {
+  --background: darkslateblue;
+}
+
+.startwork {
+  color: navy;
+  font-weight: bold;
 }

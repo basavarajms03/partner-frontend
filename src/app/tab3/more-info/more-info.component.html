@@ -40,6 +40,7 @@
       <h2 class="heading">Status</h2>
       <p class="ion-text-capitalize" [ngClass]="[
       result.status === 'Rejected'?  'rejected' : '',
+      result.status === 'Start Work'?  'startwork' : '',
       result.status === 'New'?  'new' : '',
       result.status === 'In-Progress'?  'inProgress' : '',
       result.status === 'Active'?  'active' : '',
@@ -91,13 +92,19 @@
       <ion-col size="6" size-sm size-md>
         <div>
           <ion-button type="submit" class="submit" expand="block"
-            [routerLink]="['/tabs/request/estimate', {_id: result?._id}]">Add
+            [routerLink]="['/tabs/request/estimate', {_id: result?._id}]" [disabled]="result?.startWork">Add
             Estimation</ion-button>
         </div>
       </ion-col>
       <ion-col size="6" size-sm size-md>
         <div>
-          <ion-button type="submit" class="submit submit-work" expand="block" [disabled]="true">Start work</ion-button>
+          <ion-button type="submit" class="submit submit-work" expand="block"
+            [disabled]="!result?.startWork || result?.status !== 'Start Work'" (click)="startWork()"
+            *ngIf="result?.status !== 'In-Progress'">Start work
+          </ion-button>
+          <ion-button type="submit" class="submit submit-work ion-text-capitalize0" expand="block"
+            (click)="completeWork()" *ngIf="result?.status === 'In-Progress'">Complete Work
+          </ion-button>
         </div>
       </ion-col>
     </ion-row>
@@ -115,6 +122,12 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+  <div class="ion-text-center">
+    <ion-button type="button" class="submit check-estimation ion-text-capitalize"
+      *ngIf="admin && result?.estimation_added" [routerLink]="['/tabs/request/estimate', {id: result?.estimation_id}]">
+      Check For Estimation
+    </ion-button>
+  </div>
 </ion-content>
 
 <ion-content *ngIf="assignwork">

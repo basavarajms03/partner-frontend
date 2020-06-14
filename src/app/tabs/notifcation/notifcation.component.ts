@@ -26,7 +26,8 @@ export class NotifcationComponent implements OnInit {
         "email": {
           "$in": [localStorage.getItem('email')]
         }
-      }
+      },
+      sort: { updatedAt: -1 }
     };
 
     this.apiService.post('/v1/dashboard/getall-notification', notificationParams).subscribe(res => {
