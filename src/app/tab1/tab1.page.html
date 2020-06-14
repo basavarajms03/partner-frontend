@@ -25,15 +25,16 @@
     <ion-grid class="ion-text-center">
       <ion-row>
         <ion-col>
-          <ion-icon name="git-pull-request" class="request-icon"></ion-icon>
+          <ion-icon name="git-pull-request" class="request-icon" (click)="checkWorkorders('new')"></ion-icon>
           <p class="paragraph request">Requests</p>
         </ion-col>
         <ion-col>
-          <ion-img src="/assets/pending.png" class="pending-icon"></ion-img>
+          <ion-img src="/assets/pending.png" class="pending-icon" (click)="checkWorkorders('In-Progress')"></ion-img>
           <p class="paragraph pending">Pending</p>
         </ion-col>
         <ion-col>
-          <ion-icon name="checkmark-circle-outline" class="completed-icon"></ion-icon>
+          <ion-icon name="checkmark-circle-outline" class="completed-icon" (click)="checkWorkorders('Completed')">
+          </ion-icon>
           <p class="paragraph completed">Completed</p>
         </ion-col>
       </ion-row>

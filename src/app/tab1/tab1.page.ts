@@ -3,6 +3,7 @@ import { Chart } from "chart.js";
 import { ApiService } from '../shared/api.service';
 import { LoadingComponent } from '../shared/loading/loading.component';
 import { ApexNonAxisChartSeries, ApexChart, ApexResponsive, ChartComponent, ApexLegend, ApexPlotOptions } from 'ng-apexcharts';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab1',
@@ -24,7 +25,7 @@ export class Tab1Page implements OnInit {
     plotOptions: ApexPlotOptions;
   }>;
 
-  constructor(private apiService: ApiService, private loading: LoadingComponent) { }
+  constructor(private apiService: ApiService, private loading: LoadingComponent, private router: Router) { }
   result;
 
   async ngOnInit() {
@@ -114,5 +115,9 @@ export class Tab1Page implements OnInit {
       this.notification_count = res['data'].length;
     });
 
+  }
+
+  async checkWorkorders(event) {
+    this.router.navigate(['/tabs/request', { fromDashboard: true, event: event }]);
   }
 }

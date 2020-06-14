@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../shared/api.service';
 import { LoadingComponent } from '../shared/loading/loading.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-tab3',
@@ -12,7 +13,7 @@ export class Tab3Page implements OnInit {
   notification_count: any;
   admin;
 
-  constructor(private apiService: ApiService, private loading: LoadingComponent) { }
+  constructor(private apiService: ApiService, private loading: LoadingComponent, private actRouter: ActivatedRoute) { }
   result;
 
   async ngOnInit() {
@@ -36,6 +37,11 @@ export class Tab3Page implements OnInit {
           acknowledge_email: localStorage.getItem('email')
         }
       };
+    }
+
+    let parameters = this.actRouter.snapshot.params;
+    if (parameters.event) {
+      params.filter.status = parameters.event;
     }
 
     let loading = await this.loading.loading();
