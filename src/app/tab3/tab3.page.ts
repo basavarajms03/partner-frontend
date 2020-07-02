@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../shared/api.service';
 import { LoadingComponent } from '../shared/loading/loading.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab3',
@@ -13,7 +13,8 @@ export class Tab3Page implements OnInit {
   notification_count: any;
   admin;
 
-  constructor(private apiService: ApiService, private loading: LoadingComponent, private actRouter: ActivatedRoute) { }
+  constructor(private apiService: ApiService, private loading: LoadingComponent, private actRouter: ActivatedRoute,
+    private router: Router) { }
   result;
 
   async ngOnInit() {
@@ -64,6 +65,10 @@ export class Tab3Page implements OnInit {
       this.notification_count = res['data'].length;
     });
 
+  }
+
+  logout() {
+    this.router.navigate(['/authentication/logout/true']);
   }
 
 }

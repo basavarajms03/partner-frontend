@@ -11,7 +11,7 @@
         <ion-badge color="danger" class="notification">{{notification_count}}</ion-badge>
       </ion-button>
 
-      <ion-button>
+      <ion-button (click)="logout()">
         <ion-icon name="log-out-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -27,10 +27,10 @@
 
   <ion-segment class="padding" value="personal" (ionChange)="segmentChange($event)">
     <ion-segment-button value="personal">
-      <ion-label>Personal Info</ion-label>
+      <ion-label class="ion-text-capitalize"><b>Personal Info</b></ion-label>
     </ion-segment-button>
     <ion-segment-button value="password">
-      <ion-label>Change Password</ion-label>
+      <ion-label class="ion-text-capitalize"><b>Change Password</b></ion-label>
     </ion-segment-button>
   </ion-segment>
 

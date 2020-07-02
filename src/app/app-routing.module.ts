@@ -14,6 +14,10 @@ const routes: Routes = [
       {
         path: 'createAccount',
         component: CreateAccountComponent
+      },
+      {
+        path: 'logout/:status',
+        component: LoginComponent
       }
     ]
   },

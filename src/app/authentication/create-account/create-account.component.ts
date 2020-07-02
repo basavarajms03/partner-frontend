@@ -16,20 +16,28 @@ export class CreateAccountComponent implements OnInit {
 
   employeeTypes = [
     {
-      name: "Saloon For Women",
-      value: "Saloon For Women"
+      name: "Water Supply",
+      value: "Water Supply"
     },
     {
-      name: "Saloon For Men",
-      value: "Saloon For Men"
+      name: "Mehandi",
+      value: "Mehandi"
     },
     {
-      name: "Cleaning and Pest Control",
-      value: "Cleaning and Pest Control"
+      name: "Car Or Bike Rapair",
+      value: "Car Or Bike Repair"
     },
     {
-      name: "Massage At Home",
-      value: "Massage At Home"
+      name: "Welder",
+      value: "Welder"
+    },
+    {
+      name: "Computer Service",
+      value: "Computer Service"
+    },
+    {
+      name: "Bore Well Service (Underground)",
+      value: "Bore Well Service (Underground)"
     },
     {
       name: "AC Service and Reair",
@@ -50,6 +58,22 @@ export class CreateAccountComponent implements OnInit {
     {
       name: "Painting",
       value: "Painting"
+    },
+    {
+      name: "Saloon For Women",
+      value: "Saloon For Women"
+    },
+    {
+      name: "Saloon For Men",
+      value: "Saloon For Men"
+    },
+    {
+      name: "Cleaning and Pest Control",
+      value: "Cleaning and Pest Control"
+    },
+    {
+      name: "Massage At Home",
+      value: "Massage At Home"
     }
   ];
   accountForm: FormGroup;
@@ -63,24 +87,13 @@ export class CreateAccountComponent implements OnInit {
       name: new FormControl(null, [Validators.required]),
       phoneNumber: new FormControl(null, [Validators.required]),
       email: new FormControl(null),
-      employeeType: new FormControl(null),
+      employeeType: new FormControl(null, [Validators.required]),
+      adharCard: new FormControl(null, [Validators.required]),
       address: new FormControl(null, [Validators.required]),
       city: new FormControl(null, [Validators.required]),
       password: new FormControl(null, [Validators.required]),
-      registrationType: new FormControl(null),
       confirmPassword: new FormControl(null, [Validators.required])
     });
-  }
-
-  checkRegType(value) {
-    if (value === "Employee") {
-      this.enableEmpType = true;
-      this.accountForm.controls['employeeType'].setValidators(Validators.required);
-    } else {
-      this.enableEmpType = false;
-      this.accountForm.controls['employeeType'].clearValidators();
-      this.accountForm.controls['employeeType'].setValue(null);
-    }
   }
 
   async onSubmit() {
@@ -89,7 +102,10 @@ export class CreateAccountComponent implements OnInit {
     let loading = await this.loadingCtrl.loading();
     loading.present();
     if (this.accountForm.value.password === this.accountForm.value.confirmPassword) {
-      this.apiService.post('/v1/auth/createUser', this.accountForm.value).subscribe(async response => {
+      let formValues = this.accountForm.value;
+      formValues.registrationType = 'Worker';
+      console.log("FormValues Information", formValues);
+      this.apiService.post('/v1/auth/createUser', formValues).subscribe(async response => {
         if (response['code'] === 200) {
           /** Disable Loading */
           loading.dismiss();

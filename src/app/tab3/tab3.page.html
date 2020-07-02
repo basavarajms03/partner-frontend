@@ -10,7 +10,7 @@
         <ion-badge color="danger" class="notification">{{notification_count}}</ion-badge>
       </ion-button>
 
-      <ion-button>
+      <ion-button (click)="logout()">
         <ion-icon name="log-out-outline"></ion-icon>
       </ion-button>
 
@@ -36,7 +36,8 @@
       result.status === 'New'?  'new' : '',
       result.status === 'In-Progress'?  'inProgress' : '',
       result.status === 'Active'?  'active' : '',
-      result.status === 'Completed'?  'resolved' : ''
+      result.status === 'Completed'?  'resolved' : '',
+      result.status === 'Cancelled'?  'cancelled' : ''
       ]">
         <ion-avatar slot="start">
           <img src="/assets/workorder.png">

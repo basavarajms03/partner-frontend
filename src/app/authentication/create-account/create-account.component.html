@@ -22,22 +22,15 @@
     </div>
     <div class="ion-margin-top input">
       <ion-item lines="none">
-        <ion-label>Registration Type</ion-label>
-        <ion-select placeholder="Select" formControlName="registrationType"
-          (ngModelChange)="checkRegType($event)">
-          <ion-select-option value="Employee">Worker</ion-select-option>
-          <ion-select-option value="Customer">Customer</ion-select-option>
-        </ion-select>
-      </ion-item>
-    </div>
-    <div class="ion-margin-top input" *ngIf="enableEmpType">
-      <ion-item lines="none">
         <ion-label>Employee Type</ion-label>
         <ion-select placeholder="Select" multiple="true" formControlName="employeeType">
           <ion-select-option *ngFor="let empTypes of employeeTypes" [value]="empTypes.value">{{empTypes.name}}
           </ion-select-option>
         </ion-select>
       </ion-item>
+    </div>
+    <div class="ion-margin-top">
+      <ion-input type="text" placeholder="Aadhaar Card" class="input" formControlName="adharCard"></ion-input>
     </div>
     <div class="ion-margin-top">
       <ion-input type="text" placeholder="City" class="input" formControlName="city"></ion-input>

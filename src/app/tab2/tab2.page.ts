@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AlertComponent } from '../shared/alert/alert.component';
 import { LoadingComponent } from '../shared/loading/loading.component';
 import { ApiService } from '../shared/api.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab2',
@@ -17,7 +18,8 @@ export class Tab2Page implements OnInit {
   profileData: any;
   notification_count: any;
 
-  constructor(private alert: AlertComponent, private loading: LoadingComponent, private apiService: ApiService) { }
+  constructor(private alert: AlertComponent, private loading: LoadingComponent, private apiService: ApiService,
+    private router: Router) { }
 
   async ngOnInit() {
     this.changePassword = new FormGroup({
@@ -76,4 +78,7 @@ export class Tab2Page implements OnInit {
     }
   }
 
+  logout() {
+    this.router.navigate(['/authentication/logout/true']);
+  }
 }

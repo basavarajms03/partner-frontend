@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingComponent } from 'src/app/shared/loading/loading.component';
 import { ApiService } from 'src/app/shared/api.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -19,8 +19,9 @@ export class MoreInfoComponent implements OnInit {
   admin = false;
   assignwork = false;
   assignForm: FormGroup;
+  selectedUsersList: any;
 
-  constructor(private actRouter: ActivatedRoute, private loadingController: LoadingComponent, private apiService: ApiService) { }
+  constructor(private actRouter: ActivatedRoute, private router: Router, private loadingController: LoadingComponent, private apiService: ApiService) { }
 
   async ngOnInit() {
 
@@ -57,11 +58,25 @@ export class MoreInfoComponent implements OnInit {
     });
   }
 
-  assignworkinfo() {
+  async assignworkinfo() {
     this.assignwork = true;
     this.assignForm = new FormGroup({
       assignee_email: new FormControl(null, [Validators.required])
     });
+
+    //Filter condition for the user list for current workorder
+    let userFilter = {
+      "filter": { "employeeType": this.result.problemType }
+    }
+
+    let loadingController = await this.loadingController.loading();
+    (loadingController).present();
+
+    this.apiService.post('/v1/dashboard/getWorkorderUsers', userFilter).subscribe(async userList => {
+      await loadingController.dismiss();
+      this.selectedUsersList = userList['data'];
+    });
+
   }
 
   cancelWork() {
@@ -107,6 +122,7 @@ export class MoreInfoComponent implements OnInit {
       await (await loading).dismiss();
       this.ngOnInit();
     });
+    this.assignwork = false;
   }
 
   async startWork() {
@@ -159,6 +175,14 @@ export class MoreInfoComponent implements OnInit {
       }
     });
 
+  }
+
+  goback() {
+    this.assignwork = false;
+  }
+
+  logout() {
+    this.router.navigate(['/authentication/logout/true']);
   }
 
 }

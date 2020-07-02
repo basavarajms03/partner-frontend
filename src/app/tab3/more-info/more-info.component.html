@@ -13,7 +13,7 @@
         <ion-badge color="danger" class="notification">{{notification_count}}</ion-badge>
       </ion-button>
 
-      <ion-button>
+      <ion-button (click)="logout()">
         <ion-icon name="log-out-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -131,24 +131,49 @@
 </ion-content>
 
 <ion-content *ngIf="assignwork">
-  <form class="ion-margin" [formGroup]="assignForm" (ngSubmit)="assignSubmit()">
-    <ion-item lines="inset">
-      <ion-label>Select a user</ion-label>
-      <ion-select formControlName="assignee_email">
-        <ion-select-option value="basavaraj.sangur03@gmail.com">basavaraj.sangur03@gmail.com</ion-select-option>
-      </ion-select>
-    </ion-item>
+  <div *ngIf="selectedUsersList?.length > 0">
+
+    <form class="ion-margin" [formGroup]="assignForm" (ngSubmit)="assignSubmit()">
+      <ion-item lines="inset">
+        <ion-label>Select a user</ion-label>
+        <ion-select formControlName="assignee_email">
+          <ion-select-option value="{{users.email}}" *ngFor="let users of selectedUsersList">
+            {{users.email}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-grid class="ion-text-center">
+        <ion-row>
+          <ion-col>
+            <ion-button type="submit" class="submit m-t-3 ion-margin-top ion-text-capitalize">Assign To User
+            </ion-button>
+          </ion-col>
+          <ion-col>
+            <ion-button type="submit" class="submit reject-work m-t-3 ion-margin-top ion-text-capitalize"
+              (click)="cancelWork()">Cancel
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+  </div>
+  <div *ngIf="selectedUsersList?.length === 0" class="ion-text-center">
+    <img src="/assets/nousers.png" class="m-top">
+    <p class="ion-margin no-para">
+      No user is registered once the user is registered, you can assign the work to them.
+      Or Reject the work
+    </p>
     <ion-grid class="ion-text-center">
       <ion-row>
         <ion-col>
-          <ion-button type="submit" class="submit m-t-3 ion-margin-top ion-text-capitalize">Assign To User</ion-button>
+          <ion-button type="submit" class="submit ion-text-capitalize" (click)="goback()">Go Back
+          </ion-button>
         </ion-col>
         <ion-col>
-          <ion-button type="submit" class="submit reject-work m-t-3 ion-margin-top ion-text-capitalize"
-            (click)="cancelWork()">Cancel
+          <ion-button type="submit" class="submit reject-work ion-text-capitalize" (click)="rejectWork()">Reject Work
           </ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
-  </form>
+  </div>
 </ion-content>

@@ -101,6 +101,7 @@ export class Tab1Page implements OnInit {
     this.apiService.post("/v1/dashboard/get-raise-request", params).subscribe(async res => {
       loading.dismiss();
       this.result = res['data'];
+      console.log("Result information", this.result);
     });
 
     let notificationParams = {
@@ -119,5 +120,9 @@ export class Tab1Page implements OnInit {
 
   async checkWorkorders(event) {
     this.router.navigate(['/tabs/request', { fromDashboard: true, event: event }]);
+  }
+
+  logout() {
+    this.router.navigate(['/authentication/logout/true']);
   }
 }

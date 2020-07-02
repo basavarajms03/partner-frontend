@@ -22,6 +22,7 @@ export class EstimationComponent implements OnInit {
   estimation_id;
   notification_count;
   admin = false;
+  startWork = false;
 
   constructor(private actRouter: ActivatedRoute, private apiService:
     ApiService, private loading: LoadingComponent, private createAlert: AlertController,
@@ -63,6 +64,7 @@ export class EstimationComponent implements OnInit {
     this.apiService.post('/v1/dashboard/get-estimation', parmInfo).subscribe(res => {
       createLoading.dismiss();
       this.itemInfo = res['data'][0];
+      this.startWork = res['data'][0].startWork;
       this.total = this.itemInfo.items.reduce((sum, prop) => +sum + +prop.price, 0);
     });
 
@@ -240,6 +242,10 @@ export class EstimationComponent implements OnInit {
       }
     });
 
+  }
+
+  logout() {
+    this.router.navigate(['/authentication/logout/true']);
   }
 
 }

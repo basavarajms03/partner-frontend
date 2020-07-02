@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/shared/api.service';
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
 import { LoadingComponent } from 'src/app/shared/loading/loading.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
@@ -16,13 +16,18 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
 
   constructor(private apiService: ApiService, private alert: AlertComponent,
-    private loadingCtrl: LoadingComponent, private router: Router) { }
+    private loadingCtrl: LoadingComponent, private router: Router, private actRouter: ActivatedRoute) { }
 
   ngOnInit() {
     this.form = new FormGroup({
       username: new FormControl(null),
       password: new FormControl(null)
     });
+
+    let params = this.actRouter.snapshot.params;
+    if (params.status) {
+      localStorage.clear();
+    }
   }
 
   async onSubmit() {
