@@ -28,6 +28,11 @@ export class Tab1Page implements OnInit {
   constructor(private apiService: ApiService, private loading: LoadingComponent, private router: Router) { }
   result;
 
+
+  ionViewWillEnter() {
+    this.ngOnInit();
+  }
+
   async ngOnInit() {
 
     if (localStorage.getItem('admin') === "true") {

@@ -79,28 +79,35 @@
   </div>
 </ion-content>
 
-<ion-content *ngIf="admin && itemInfo" class="ion-padding">
-  <ion-grid>
-    <ion-row class="ion-text-center table-header">
-      <ion-col> <b>Item Name</b></ion-col>
-      <ion-col> <b>Price In Rs</b></ion-col>
-    </ion-row>
-    <ion-row *ngFor="let items of itemInfo.items">
-      <ion-col>{{items?.itemName}}</ion-col>
-      <ion-col class="ion-text-center">{{items?.price}}</ion-col>
-    </ion-row>
-    <ion-row class="total-estimations">
-      <ion-col>Total Estimation</ion-col>
-      <ion-col class="ion-text-center">Rs. {{total}}/-</ion-col>
-    </ion-row>
-  </ion-grid>
-  <ion-grid *ngIf="!startWork">
-    <ion-row>
-      <ion-col></ion-col> <!-- Need to add the button for rejection-->
-      <ion-col size="6">
-        <ion-button type="submit" class="submit start-work ion-text-capitalize" (click)="startworkorder()">Start Work
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+<ion-content *ngIf="admin && resultInfo" class="ion-padding">
+
+  <div class="ion-text-center" *ngIf="resultInfo?.length == 0">
+    <img src="/assets/estimate-icons.png" class="nodata-img">
+    <h6 class="heading-info">No Estimation Added</h6>
+    <p class="ion-text-capitalize paragraph">
+      Please check after some time, you may receive some estimation based on your requests,
+      <br />Thank You
+    </p>
+  </div>
+
+  <ion-item lines="full" *ngFor="let items of resultInfo">
+    <ion-label>
+      <div class="itemsInfo" *ngIf="items?.startWork">
+        <ion-icon name="checkmark-done-outline" class="icon"></ion-icon>
+      </div>
+      <ion-grid class="rm-padd">
+        <ion-row>
+          <ion-col class="rm-padd">
+            <h2 class="ion-text-capitalize">{{items?.userInfo[0].name}}</h2>
+          </ion-col>
+          <ion-col class="rm-padd">
+            <h2 class="ion-text-capitalize ion-text-end text-muted">
+              <ion-icon name="location-outline" class="icons-data"></ion-icon> {{items?.userInfo[0].city}}
+            </h2>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <p>Total Charge: &#x20B9; {{items?.total}}</p>
+    </ion-label>
+  </ion-item>
 </ion-content>

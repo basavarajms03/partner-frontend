@@ -23,10 +23,16 @@ export class EstimationComponent implements OnInit {
   notification_count;
   admin = false;
   startWork = false;
+  resultInfo;
 
   constructor(private actRouter: ActivatedRoute, private apiService:
     ApiService, private loading: LoadingComponent, private createAlert: AlertController,
     private router: Router) {
+  }
+
+
+  ionViewWillEnter() {
+    this.ngOnInit();
   }
 
   async ngOnInit() {
@@ -56,7 +62,7 @@ export class EstimationComponent implements OnInit {
       };
     } else {
       parmInfo = {
-        _id: this.actRouter.snapshot.paramMap.get('id'),
+        product_id: this.actRouter.snapshot.paramMap.get('id'),
         finalSubmission: true
       };
     }
@@ -64,6 +70,7 @@ export class EstimationComponent implements OnInit {
     this.apiService.post('/v1/dashboard/get-estimation', parmInfo).subscribe(res => {
       createLoading.dismiss();
       this.itemInfo = res['data'][0];
+      this.resultInfo = res['data'];
       this.startWork = res['data'][0].startWork;
       this.total = this.itemInfo.items.reduce((sum, prop) => +sum + +prop.price, 0);
     });

@@ -74,3 +74,86 @@
 .start-work {
   --background: black;
 }
+.avatar {
+  background: #10856f;
+  border-radius: 0px;
+  padding: 8px;
+  color: white;
+  width: 70px;
+  height: 52px;
+}
+
+.select {
+  padding: 0px;
+  margin: 0px;
+  font-size: 1px;
+  text-align: center;
+}
+
+.danger {
+  color: #a02525;
+}
+
+.rm-padd {
+  padding-left: 0px;
+  padding-bottom: 0px;
+}
+
+.text-muted {
+  color: #737373;
+}
+
+.icons-data {
+  font-size: 14px;
+  position: relative;
+  top: 2px;
+  left: 2px;
+}
+
+.selected {
+  position: absolute;
+  right: 0px;
+  color: red;
+  font-size: 20px;
+}
+
+.nodata-img {
+  width: 35%;
+}
+
+.heading-info {
+  margin: 0px;
+  padding: 0px;
+  color: #554d99;
+  font-weight: 700;
+}
+
+.paragraph {
+  margin: 0px;
+  font-size: 14px;
+}
+
+.itemsInfo::before {
+  content: " ";
+  clip-path: polygon(100% 23%, 71% 0, 100% 0);
+  width: 185px;
+  height: 185px;
+  background: #070747;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
+
+.itemsInfo {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+}
+
+.icon {
+  position: relative;
+  top: 1px;
+  right: 5px;
+  color: white;
+  font-size: 23px;
+}

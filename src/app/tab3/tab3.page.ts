@@ -17,6 +17,10 @@ export class Tab3Page implements OnInit {
     private router: Router) { }
   result;
 
+  ionViewWillEnter() {
+    this.ngOnInit();
+  }
+
   async ngOnInit() {
 
     if (localStorage.getItem('admin') === "true") {
@@ -26,14 +30,14 @@ export class Tab3Page implements OnInit {
     }
 
     let params;
-    if (!this.admin) {
+    if (this.admin) {
       params = {
         filter: {}
       };
     } else {
       params = {
         filter: {
-          acknowledge_email: localStorage.getItem('email')
+          assignee_email: localStorage.getItem('email')
         }
       };
     }
