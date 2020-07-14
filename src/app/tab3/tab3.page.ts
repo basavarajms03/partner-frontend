@@ -28,9 +28,7 @@ export class Tab3Page implements OnInit {
     let params;
     if (!this.admin) {
       params = {
-        filter: {
-          assignee_email: localStorage.getItem('email')
-        }
+        filter: {}
       };
     } else {
       params = {

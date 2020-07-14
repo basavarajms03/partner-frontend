@@ -71,9 +71,9 @@
       </p>
     </ion-label>
   </ion-item>
-  <ion-item lines="none">
+  <!-- <ion-item lines="none">
     <ion-button type="submit" class="submit  ion-text-capitalize" expand="block">Google Map Location</ion-button>
-  </ion-item>
+  </ion-item> -->
 
   <ion-item lines="none" *ngIf="result?.attachments">
     <ion-label>
@@ -98,9 +98,8 @@
       </ion-col>
       <ion-col size="6" size-sm size-md>
         <div>
-          <ion-button type="submit" class="submit submit-work" expand="block"
-            [disabled]="!result?.startWork || result?.status !== 'Start Work'" (click)="startWork()"
-            *ngIf="result?.status !== 'In-Progress'">Start work
+          <ion-button type="submit" class="submit submit-work" expand="block" [disabled]="!result?.startWork"
+            (click)="startWork()" *ngIf="result?.status !== 'In-Progress'">Start work
           </ion-button>
           <ion-button type="submit" class="submit submit-work ion-text-capitalize0" expand="block"
             (click)="completeWork()" *ngIf="result?.status === 'In-Progress'">Complete Work

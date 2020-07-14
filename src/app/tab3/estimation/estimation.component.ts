@@ -91,11 +91,14 @@ export class EstimationComponent implements OnInit {
       let parmaInfo = {
         email: localStorage.getItem('email'),
         product_id: this.params,
+        total: this.total + this.estimationForm.value.price,
         items: [{
           itemName: this.estimationForm.value.itemName,
           price: this.estimationForm.value.price
         }]
       };
+
+      console.log(parmaInfo);
 
       this.apiService.post('/v1/dashboard/add-estimation', parmaInfo).subscribe(res => {
         createLoading.dismiss();

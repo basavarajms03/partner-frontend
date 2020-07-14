@@ -58,6 +58,10 @@ export class MoreInfoComponent implements OnInit {
     });
   }
 
+  ionViewWillEnter() {
+    this.ngOnInit();
+  }
+
   async assignworkinfo() {
     this.assignwork = true;
     this.assignForm = new FormGroup({

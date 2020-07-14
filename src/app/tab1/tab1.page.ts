@@ -80,9 +80,7 @@ export class Tab1Page implements OnInit {
     let params;
     if (!this.admin) {
       params = {
-        filter: {
-          assignee_email: localStorage.getItem('email')
-        },
+        filter: {},
         limit: 2,
         skip: 0
       };
@@ -101,7 +99,6 @@ export class Tab1Page implements OnInit {
     this.apiService.post("/v1/dashboard/get-raise-request", params).subscribe(async res => {
       loading.dismiss();
       this.result = res['data'];
-      console.log("Result information", this.result);
     });
 
     let notificationParams = {
