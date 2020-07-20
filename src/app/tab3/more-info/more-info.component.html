@@ -1,6 +1,6 @@
-<ion-header *ngIf="result">
+<ion-header *ngIf="result.length > 0">
   <ion-toolbar color="primary">
-    <ion-title>{{result?.problemType}}</ion-title>
+    <ion-title>{{result[0]?.problemType}}</ion-title>
 
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
@@ -8,7 +8,7 @@
 
     <ion-buttons slot="end">
 
-      <ion-button [routerLink]="['/tabs/request/notification']">
+      <ion-button [routerLink]="['/tabs/wallet/notification']">
         <ion-icon name="notifications"></ion-icon>
         <ion-badge color="danger" class="notification">{{notification_count}}</ion-badge>
       </ion-button>
@@ -20,155 +20,59 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding" *ngIf="result && !assignwork">
+<ion-content *ngIf="result.length > 0">
+  <ion-list>
+    <ion-item lines="none">
+      <ion-label>
+        <span>Customer Name</span>
+        <p>{{result[0]?.fullName}}</p>
+      </ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>
+        <span>Workorder Status</span>
+        <p [ngClass]="[
+        result[0].status === 'Rejected'?  'rejected' : '',
+        result[0].status === 'Start Work'?  'startwork' : '',
+        result[0].status === 'New'?  'new' : '',
+        result[0].status === 'In-Progress'?  'inProgress' : '',
+        result[0].status === 'Active'?  'active' : '',
+        result[0].status === 'Completed'?  'resolved' : '',
+        result[0].status === 'Cancelled'?  'cancelled' : '',
+        result[0].status === 'Work Assigned'?  'work-assigned' : ''
+        ]">{{result[0]?.status}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
   <ion-item lines="none">
     <ion-label>
-      <h2 class="heading">Customer Name</h2>
-      <p class="ion-text-capitalize">{{result?.fullName}}</p>
+      <span>Location</span>
+      <p>{{result[0]?.location}}</p>
     </ion-label>
   </ion-item>
-
   <ion-item lines="none">
     <ion-label>
-      <h2 class="heading">Location</h2>
-      <p class="ion-text-capitalize">{{result?.address}}</p>
+      <span>Customer Address</span>
+      <p>{{result[0]?.address}}</p>
     </ion-label>
   </ion-item>
-
   <ion-item lines="none">
     <ion-label>
-      <h2 class="heading">Status</h2>
-      <p class="ion-text-capitalize" [ngClass]="[
-      result.status === 'Rejected'?  'rejected' : '',
-      result.status === 'Start Work'?  'startwork' : '',
-      result.status === 'New'?  'new' : '',
-      result.status === 'In-Progress'?  'inProgress' : '',
-      result.status === 'Active'?  'active' : '',
-      result.status === 'Completed'?  'resolved' : ''
-      ]">{{result?.status}}</p>
+      <span>Description</span>
+      <p class="ion-text-wrap ion-text-justify">{{result[0]?.description}}</p>
     </ion-label>
   </ion-item>
-
-  <ion-item lines="none">
-    <ion-label>
-      <h2 class="heading">Created Date & Time</h2>
-      <p class="ion-text-capitalize">{{created_time |  date:'medium'}}</p>
-    </ion-label>
-  </ion-item>
-
-  <ion-item lines="none" *ngIf="result?.assignee_email">
-    <ion-label>
-      <h2 class="heading">Assignee Name</h2>
-      <p>{{result?.assignee_email}}</p>
-    </ion-label>
-  </ion-item>
-
-  <ion-item lines="none">
-    <ion-label>
-      <h2 class="heading">Description</h2>
-      <p class="ion-text-wrap ion-text-justify ion-text-capitalize">
-        {{result?.description}}
-      </p>
-    </ion-label>
-  </ion-item>
-  <!-- <ion-item lines="none">
-    <ion-button type="submit" class="submit  ion-text-capitalize" expand="block">Google Map Location</ion-button>
-  </ion-item> -->
-
-  <ion-item lines="none" *ngIf="result?.attachments">
-    <ion-label>
-      <h2 class="heading">Attachments</h2>
-    </ion-label>
-  </ion-item>
-
-  <ion-item lines="none" *ngIf="result?.attachments">
-    <div>
-      <img [src]="result?.attachments" class="image">
-    </div>
-  </ion-item>
-
-  <ion-grid *ngIf="!admin">
+  <ion-grid>
     <ion-row>
-      <ion-col size="6" size-sm size-md>
-        <div>
-          <ion-button type="submit" class="submit" expand="block"
-            [routerLink]="['/tabs/request/estimate', {_id: result?._id}]" [disabled]="result?.startWork">Add
-            Estimation</ion-button>
-        </div>
+      <ion-col>
+        <ion-button expand="full" class="ion-text-capitalize"
+          [routerLink]="['/tabs/dashboard/estimate', {_id: result[0]?._id}]" [disabled]="result[0]?.startWork">Add
+          Estimation</ion-button>
       </ion-col>
-      <ion-col size="6" size-sm size-md>
-        <div>
-          <ion-button type="submit" class="submit submit-work" expand="block" [disabled]="!result?.startWork"
-            (click)="startWork()" *ngIf="result?.status === 'New'">Start work
-          </ion-button>
-          <ion-button type="submit" class="submit submit-work ion-text-capitalize0" expand="block"
-            (click)="completeWork()" *ngIf="result?.status === 'In-Progress'">Complete Work
-          </ion-button>
-        </div>
+      <ion-col>
+        <ion-button expand="full" class="ion-text-capitalize startwork" [disabled]="!result[0]?.startWork">Start
+          Workorder</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
-
-  <ion-grid *ngIf="admin" class="grid-data">
-    <ion-row size="12">
-      <ion-col size="6">
-        <ion-button type="button" class="check-estimation ion-text-capitalize" *ngIf="admin && result?.estimation_added"
-          [routerLink]="['/tabs/request/estimate', {id: result?._id}]">
-          Check Estimation
-        </ion-button>
-      </ion-col>
-      <ion-col size="6" *ngIf="result?.status == 'New'">
-        <ion-button type="button" class="reject-work ion-text-capitalize" (click)="rejectWork()">Reject Work
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-content>
-
-<ion-content *ngIf="assignwork">
-  <div *ngIf="selectedUsersList?.length > 0">
-
-    <form class="ion-margin" [formGroup]="assignForm" (ngSubmit)="assignSubmit()">
-      <ion-item lines="inset">
-        <ion-label>Select a user</ion-label>
-        <ion-select formControlName="assignee_email">
-          <ion-select-option value="{{users.email}}" *ngFor="let users of selectedUsersList">
-            {{users.email}}
-          </ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-grid class="ion-text-center">
-        <ion-row>
-          <ion-col>
-            <ion-button type="submit" class="submit m-t-3 ion-margin-top ion-text-capitalize">Assign To User
-            </ion-button>
-          </ion-col>
-          <ion-col>
-            <ion-button type="submit" class="submit reject-work m-t-3 ion-margin-top ion-text-capitalize"
-              (click)="cancelWork()">Cancel
-            </ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </form>
-  </div>
-  <div *ngIf="selectedUsersList?.length === 0" class="ion-text-center">
-    <img src="/assets/nousers.png" class="m-top">
-    <p class="ion-margin no-para">
-      No user is registered once the user is registered, you can assign the work to them.
-      Or Reject the work
-    </p>
-    <ion-grid class="ion-text-center">
-      <ion-row>
-        <ion-col>
-          <ion-button type="submit" class="submit ion-text-capitalize" (click)="goback()">Go Back
-          </ion-button>
-        </ion-col>
-        <ion-col>
-          <ion-button type="submit" class="submit reject-work ion-text-capitalize" (click)="rejectWork()">Reject Work
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
 </ion-content>

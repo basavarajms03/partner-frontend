@@ -1,11 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-title>
-      Workorder Assigned
+      Wallet
     </ion-title>
     <ion-buttons slot="end">
 
-      <ion-button [routerLink]="['/tabs/request/notification']">
+      <ion-button [routerLink]="['/tabs/wallet/notification']">
         <ion-icon name="notifications"></ion-icon>
         <ion-badge color="danger" class="notification">{{notification_count}}</ion-badge>
       </ion-button>
@@ -19,37 +19,9 @@
 </ion-header>
 
 <ion-content>
-  <div class="ion-text-center ion-text-capitalize ion-margin-top" *ngIf="result?.length == 0">
-    <ion-img src="/assets/nodata.png" class="img-css"></ion-img>
-    <p>
-      <span class="nodata">No data found </span>
-      <br /> Once the work is assigned to you those requests will be visible here
-      <br /> Thank You!</p>
-  </div>
-
-
-  <div *ngIf="result?.length > 0">
-    <ion-card *ngFor="let result of result">
-      <ion-item lines="none" [routerLink]="['/tabs/request/more-info', {id: result?._id}]" [ngClass]="[
-      result.status === 'Rejected'?  'rejected' : '',
-      result.status === 'Start Work'?  'startwork' : '',
-      result.status === 'New'?  'new' : '',
-      result.status === 'In-Progress'?  'inProgress' : '',
-      result.status === 'Active'?  'active' : '',
-      result.status === 'Completed'?  'resolved' : '',
-      result.status === 'Cancelled'?  'cancelled' : '',
-      result.status === 'Work Assigned'?  'work-assigned' : ''
-      ]">
-        <ion-avatar slot="start">
-          <img src="/assets/workorder.png">
-        </ion-avatar>
-
-        <ion-label class="ion-text-capitalize">
-          <h2>{{result?.problemType}}</h2>
-          <p class="sub-description">{{result?.description}}</p>
-        </ion-label>
-
-      </ion-item>
-    </ion-card>
+  <div class="ion-text-center ion-margin ion-padding">
+    <img src="/assets/no-transaction.png" width="145px" alt="" srcset="">
+    <p class="ion-no-margin ion-no-padding">No Transaction Found For You. Once the payment done by the customer, that
+      can be visible here.</p>
   </div>
 </ion-content>

@@ -6,30 +6,40 @@ ion-content ion-toolbar {
   margin: 0px;
 }
 
+.icon-start {
+  font-size: 35px;
+  position: relative;
+  left: 10px;
+  color: #554d99;
+}
+
 .request-icon {
   border: 1px solid blue;
   background: #c5dcff;
   border-radius: 50%;
-  padding: 10px;
+  padding: 5px;
   color: blue;
+  font-size: 18px;
 }
 
 .pending-icon {
   border: 1px solid #ff8300;
   background: #ffddb7;
   border-radius: 50%;
-  padding: 10px;
+  /* padding: 10px; */
   color: #ff8300;
-  width: 38px;
-  margin: 0px auto 5px;
+  width: 26px;
+  position: relative;
+  top: 11px;
 }
 
 .completed-icon {
   border: 1px solid rgb(97, 175, 80);
   background: rgb(97, 175, 80);
   border-radius: 50%;
-  padding: 10px;
+  padding: 5px;
   color: #054923;
+  font-size: 18px;
 }
 
 .completed {
@@ -67,38 +77,31 @@ ion-content ion-toolbar {
 }
 
 .rejected {
-  --background: #660000;
-  --color: white !important;
+  color: #660000;
 }
 
 .startwork {
-  --background: navy;
-  --color: white !important;
+  color: navy;
 }
 
 .new {
-  --background: #e55524 !important;
-  --color: white !important;
+  color: #e55524 !important;
 }
 
 .inProgress {
-  --background: #1182c5 !important;
-  --color: white !important;
+  color: #1182c5 !important;
 }
 
 .active {
-  --background: #8d191c !important;
-  --color: white !important;
+  color: #8d191c !important;
 }
 
 .resolved {
-  --background: #136b36 !important;
-  --color: white !important;
+  color: #136b36 !important;
 }
 
 .cancelled {
-  --background: #000000 !important;
-  --color: white !important;
+  color: #000000 !important;
 }
 
 .sub-description {
@@ -108,4 +111,8 @@ ion-content ion-toolbar {
 .work-assigned {
   --background: gray;
   color: white;
+}
+
+.segment-scrollable::-webkit-scrollbar {
+  display: none;
 }

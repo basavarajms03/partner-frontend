@@ -71,8 +71,9 @@ export class EstimationComponent implements OnInit {
       createLoading.dismiss();
       this.itemInfo = res['data'][0];
       this.resultInfo = res['data'];
-      this.startWork = res['data'][0].startWork;
-      this.total = this.itemInfo.items.reduce((sum, prop) => +sum + +prop.price, 0);
+      if (this.itemInfo) {
+        this.total = this.itemInfo.items.reduce((sum, prop) => +sum + +prop.price, 0);
+      }
     });
 
     let notificationParams = {
@@ -104,8 +105,6 @@ export class EstimationComponent implements OnInit {
           price: this.estimationForm.value.price
         }]
       };
-
-      console.log(parmaInfo);
 
       this.apiService.post('/v1/dashboard/add-estimation', parmaInfo).subscribe(res => {
         createLoading.dismiss();

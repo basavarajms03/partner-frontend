@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingComponent } from 'src/app/shared/loading/loading.component';
 import { ApiService } from 'src/app/shared/api.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { workorderModel } from 'src/app/tab1/workorder.model';
 
 @Component({
   selector: 'app-more-info',
@@ -12,177 +12,34 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class MoreInfoComponent implements OnInit {
 
-  options;
-  result;
+  result: workorderModel[] = [];
   created_time;
   notification_count = 0;
-  admin = false;
   assignwork = false;
-  assignForm: FormGroup;
-  selectedUsersList: any;
 
   constructor(private actRouter: ActivatedRoute, private router: Router, private loadingController: LoadingComponent, private apiService: ApiService) { }
 
   async ngOnInit() {
-
-    if (localStorage.getItem('admin') === "true") {
-      this.admin = true;
-    } else {
-      this.admin = false;
-    }
-
-    let loading = await this.loadingController.loading();
-    loading.present();
-    this.options = this.actRouter.snapshot.paramMap.get('id');
-    let params = {
-      filter: { _id: this.options },
-      sort: { updatedAt: -1 }
-    };
-
-    this.apiService.post("/v1/dashboard/get-raise-request", params).subscribe(async res => {
-      loading.dismiss();
-      this.result = res['data'][0];
-      this.created_time = new Date(res['data'][0].createdAt);
-    });
-
-    let notificationParams = {
-      "filter": {
-        "email": {
-          "$in": [localStorage.getItem('email')]
-        }
-      }
-    };
-
-    this.apiService.post('/v1/dashboard/getall-notification', notificationParams).subscribe(res => {
-      this.notification_count = res['data'].length;
-    });
   }
 
   ionViewWillEnter() {
-    this.ngOnInit();
+    this.getSpecificWorkorder();
   }
 
-  async assignworkinfo() {
-    this.assignwork = true;
-    this.assignForm = new FormGroup({
-      assignee_email: new FormControl(null, [Validators.required])
-    });
-
-    //Filter condition for the user list for current workorder
-    let userFilter = {
-      "filter": { "employeeType": this.result.problemType }
-    }
-
-    let loadingController = await this.loadingController.loading();
-    (loadingController).present();
-
-    this.apiService.post('/v1/dashboard/getWorkorderUsers', userFilter).subscribe(async userList => {
-      await loadingController.dismiss();
-      this.selectedUsersList = userList['data'];
-    });
-
-  }
-
-  cancelWork() {
-    this.assignwork = false;
-    this.ngOnInit();
-  }
-
-  async assignSubmit() {
-    let loading = this.loadingController.loading();
-    (await loading).present();
+  async getSpecificWorkorder() {
     let params = {
       filter: {
         _id: this.actRouter.snapshot.params.id
-      },
-      update: {
-        status: "Active",
-        assignee_email: this.assignForm.value.assignee_email
       }
     };
 
-    this.apiService.post('/v1/dashboard/updateworkorder', params).subscribe(async resInfo => {
-      await (await loading).dismiss();
-      this.assignForm.reset();
-      this.assignwork = false;
-      this.ngOnInit();
+    let loading = await this.loadingController.loading();
+
+    (loading).present();
+    this.apiService.post("/v1/dashboard/get-raise-request", params).subscribe(async res => {
+      loading.dismiss();
+      this.result = res['data'];
     });
-  }
-
-  async rejectWork() {
-    let loading = this.loadingController.loading();
-    (await loading).present();
-    let params = {
-      filter: {
-        _id: this.actRouter.snapshot.params.id,
-        created_email: this.result.created_email
-      },
-      update: {
-        status: "Rejected"
-      }
-    };
-
-    this.apiService.post('/v1/dashboard/updateworkorder', params).subscribe(async resInfo => {
-      await (await loading).dismiss();
-      this.ngOnInit();
-    });
-    this.assignwork = false;
-  }
-
-  async startWork() {
-
-    let params = {
-      filter: {
-        _id: this.result._id
-      },
-      flag: 'inProgress',
-      user_email: this.result.created_email,
-      created_email: this.result.assignee_email,
-      update: {
-        status: "In-Progress"
-      },
-    }
-
-    let createLoading = await this.loadingController.loading();
-    (createLoading).present();
-
-    this.apiService.post('/v1/dashboard/startworkorder', params).subscribe(res => {
-      createLoading.dismiss();
-      if (res['code'] == "200") {
-        this.ngOnInit();
-      }
-    });
-
-  }
-
-  async completeWork() {
-
-    let params = {
-      filter: {
-        _id: this.result._id
-      },
-      flag: 'Completed',
-      user_email: this.result.created_email,
-      created_email: this.result.assignee_email,
-      update: {
-        status: "Completed"
-      },
-    }
-
-    let createLoading = await this.loadingController.loading();
-    (createLoading).present();
-
-    this.apiService.post('/v1/dashboard/startworkorder', params).subscribe(res => {
-      createLoading.dismiss();
-      if (res['code'] == "200") {
-        this.ngOnInit();
-      }
-    });
-
-  }
-
-  goback() {
-    this.assignwork = false;
   }
 
   logout() {

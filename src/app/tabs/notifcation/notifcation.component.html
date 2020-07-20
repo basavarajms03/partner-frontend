@@ -9,10 +9,14 @@
 </ion-header>
 
 
+<ion-content *ngIf="notifications?.length == 0" class="ion-text-center ion-margin ion-padding">
+  <img src="/assets/empty-notification.png" />
+  <h3 class="ion-no-margin ion-no-padding"><b>No Notifications Found</b></h3>
+</ion-content>
+
 <ion-content *ngIf="notifications?.length != 0">
   <div class="ion-margin-top">
-    <ion-item lines="full" detail [routerLink]="[notification.url, 
-      {id: notification.estimation_id, fromNotification: true, notification_id: notification?._id}]"
+    <ion-item lines="full" detail [routerLink]="[notification.url, notification.estimation_id]"
       *ngFor="let notification of notifications">
       <ion-avatar slot="start" class="avatar" [ngStyle]="{'background': background}"
         [innerHTML]="code[notification?.created_email[0]].code">

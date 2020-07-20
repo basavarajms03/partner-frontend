@@ -1,9 +1,8 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { Chart } from "chart.js";
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../shared/api.service';
 import { LoadingComponent } from '../shared/loading/loading.component';
-import { ApexNonAxisChartSeries, ApexChart, ApexResponsive, ChartComponent, ApexLegend, ApexPlotOptions } from 'ng-apexcharts';
 import { Router } from '@angular/router';
+import { workorderModel } from './workorder.model';
 
 @Component({
   selector: 'app-tab1',
@@ -13,115 +12,61 @@ import { Router } from '@angular/router';
 })
 
 export class Tab1Page implements OnInit {
-  notification_count: any;
-  @ViewChild("chart", { static: false }) chart: ChartComponent;
+  notification_count: Number = 0;
   admin = false;
-  public chartOptions: Partial<{
-    series: ApexNonAxisChartSeries;
-    chart: ApexChart;
-    responsive: ApexResponsive[];
-    labels: any;
-    legend: ApexLegend;
-    plotOptions: ApexPlotOptions;
-  }>;
-
+  result: workorderModel[] = [];
+  status: String = 'new';
+  segment = 'requests';
   constructor(private apiService: ApiService, private loading: LoadingComponent, private router: Router) { }
-  result;
 
 
   ionViewWillEnter() {
-    this.ngOnInit();
+    let params = {};
+    params['filter'] = {
+      status: 'New',
+      startWork: false
+    };
+    this.checkWorkorders(params);
   }
 
   async ngOnInit() {
-
-    if (localStorage.getItem('admin') === "true") {
-      this.admin = true;
-    } else {
-      this.admin = false;
-    }
-
-    this.chartOptions = {
-      series: [0, 0, 1],
-      chart: {
-        type: "donut",
-        width: 270
-      },
-      labels: ["Pending", "Assigned", "Completed", "Rejected"],
-      responsive: [
-        {
-          breakpoint: 3000,
-          options: {
-            legend: {
-              position: "right",
-            }
-          }
-        }
-      ],
-      legend: {
-        horizontalAlign: 'center',
-        onItemClick: {
-          toggleDataSeries: false
-        },
-        onItemHover: {
-          highlightDataSeries: false
-        }
-      },
-      plotOptions: {
-        pie: {
-          donut: {
-            labels: {
-              total: {
-                formatter: (w) => {
-                  return w.w.globals.series[w.seriesIndex]
-                }
-              }
-            }
-          }
-        }
-      }
-    };
-
-    let params;
-    if (!this.admin) {
-      params = {
-        filter: {},
-        limit: 2,
-        skip: 0
-      };
-    } else {
-      params = {
-        filter: {
-          acknowledge_email: localStorage.getItem('email')
-        },
-        limit: 2,
-        skip: 0
-      };
-    }
-    let loading = await this.loading.loading();
-    loading.present();
-
-    this.apiService.post("/v1/dashboard/get-raise-request", params).subscribe(async res => {
-      loading.dismiss();
-      this.result = res['data'];
-    });
-
-    let notificationParams = {
-      "filter": {
-        "email": {
-          "$in": [localStorage.getItem('email')]
-        }
-      }
-    };
-
-    this.apiService.post('/v1/dashboard/getall-notification', notificationParams).subscribe(res => {
-      this.notification_count = res['data'].length;
-    });
-
   }
 
   async checkWorkorders(event) {
-    this.router.navigate(['/tabs/request', { fromDashboard: true, event: event }]);
+
+    let loading = await this.loading.loading();
+
+    (loading).present();
+    this.apiService.post("/v1/dashboard/get-raise-request", event).subscribe(async res => {
+      loading.dismiss();
+      this.result = res['data'];
+    });
+  }
+
+  segmentChanged(event) {
+    this.segment = event.detail.value;
+    let params = {};
+    if (this.segment === 'requests') {
+      params['filter'] = {
+        status: 'New',
+        startWork: false
+      }
+    }
+    if (this.segment === 'pending') {
+      params['filter'] = {
+        status: {
+          $nin: ['New', 'Completed']
+        },
+        assignee_email: localStorage.getItem('email')
+      }
+    }
+    if (this.segment === 'completed') {
+      params['filter'] = {
+        status: 'Completed',
+        assignee_email: localStorage.getItem('email')
+      }
+    }
+    this.checkWorkorders(params);
   }
 
   logout() {

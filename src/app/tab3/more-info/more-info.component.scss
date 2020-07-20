@@ -21,11 +21,6 @@
   --background: #008000;
 }
 
-.new {
-  color: green;
-  font-weight: bold;
-}
-
 .grid-data {
   margin: 0px;
   padding: 0px;
@@ -46,22 +41,18 @@
 
 .new {
   color: #e55524 !important;
-  font-weight: bold;
 }
 
 .inProgress {
   color: #1182c5 !important;
-  font-weight: bold;
 }
 
 .active {
   color: #8d191c !important;
-  font-weight: bold;
 }
 
 .resolved {
   color: #136b36 !important;
-  font-weight: bold;
 }
 
 .check-estimation {
@@ -69,8 +60,7 @@
 }
 
 .startwork {
-  color: navy;
-  font-weight: bold;
+  --background: #205b20;
 }
 
 .m-top {

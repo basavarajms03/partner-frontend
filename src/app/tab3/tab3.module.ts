@@ -16,11 +16,9 @@ import { NotifcationComponent } from '../tabs/notifcation/notifcation.component'
     ReactiveFormsModule,
     RouterModule.forChild([
       { path: '', component: Tab3Page },
-      { path: 'more-info', component: MoreInfoComponent },
-      { path: 'estimate', component: EstimationComponent },
       { path: 'notification', component: NotifcationComponent }
     ])
   ],
-  declarations: [Tab3Page, MoreInfoComponent, EstimationComponent, NotifcationComponent]
+  declarations: [Tab3Page, NotifcationComponent]
 })
 export class Tab3PageModule { }
