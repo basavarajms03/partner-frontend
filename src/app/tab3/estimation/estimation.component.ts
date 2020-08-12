@@ -37,13 +37,7 @@ export class EstimationComponent implements OnInit {
 
   async ngOnInit() {
 
-    this.params = this.actRouter.snapshot.paramMap.get('_id');
-
-    if (localStorage.getItem('admin') == "true") {
-      this.admin = true;
-    } else {
-      this.admin = false;
-    }
+    this.params = this.actRouter.snapshot.params;
 
     this.estimationForm = new FormGroup({
       itemName: new FormControl(null, [Validators.required, Validators.min(3), Validators.max(50)]),
@@ -54,18 +48,10 @@ export class EstimationComponent implements OnInit {
     (createLoading).present();
 
     let parmInfo;
-
-    if (!this.admin) {
-      parmInfo = {
-        email: localStorage.getItem('email'),
-        product_id: this.params
-      };
-    } else {
-      parmInfo = {
-        product_id: this.actRouter.snapshot.paramMap.get('id'),
-        finalSubmission: true
-      };
-    }
+    parmInfo = {
+      email: localStorage.getItem('email'),
+      product_id: this.params._id
+    };
 
     this.apiService.post('/v1/dashboard/get-estimation', parmInfo).subscribe(res => {
       createLoading.dismiss();
@@ -76,6 +62,7 @@ export class EstimationComponent implements OnInit {
       }
     });
 
+    //To get the notifications information
     let notificationParams = {
       "filter": {
         "email": {
@@ -98,7 +85,7 @@ export class EstimationComponent implements OnInit {
 
       let parmaInfo = {
         email: localStorage.getItem('email'),
-        product_id: this.params,
+        product_id: this.params._id,
         total: this.total + this.estimationForm.value.price,
         items: [{
           itemName: this.estimationForm.value.itemName,
@@ -122,7 +109,7 @@ export class EstimationComponent implements OnInit {
       let parmaInfo = {
         "email": localStorage.getItem('email'),
         "_id": this.editId_info,
-        "product_id": this.params,
+        "product_id": this.params._id,
         "update": {
           "items.$.itemName": this.estimationForm.value.itemName,
           "items.$.price": this.estimationForm.value.price
@@ -171,7 +158,7 @@ export class EstimationComponent implements OnInit {
     let parmaInfo = {
       "email": localStorage.getItem('email'),
       "_id": _id,
-      "product_id": this.params,
+      "product_id": this.params._id,
     };
 
     this.apiService.post('/v1/dashboard/delete-estimation', parmaInfo).subscribe(res => {
@@ -190,10 +177,11 @@ export class EstimationComponent implements OnInit {
     let parmaInfo = {
       filter: {
         "email": localStorage.getItem('email'),
-        "product_id": this.params
+        "product_id": this.params._id
       },
       estimation_id: this.estimation_id,
       flag: "final_est",
+      created_email: this.params.created_email,
       update: {
         finalSubmission: true
       }

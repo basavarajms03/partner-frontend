@@ -1,22 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ApiService } from 'src/app/shared/api.service';
 import { LoadingComponent } from 'src/app/shared/loading/loading.component';
-import { charSet } from "./notification.constants";
+import { charSet } from "../notifications/notification.constants";
 
 @Component({
-  selector: 'app-notifcation',
-  templateUrl: './notifcation.component.html',
-  styleUrls: ['./notifcation.component.scss'],
+  selector: 'app-notifications',
+  templateUrl: './notifications.page.html',
+  styleUrls: ['./notifications.page.scss'],
   providers: [LoadingComponent]
 })
-export class NotifcationComponent implements OnInit {
+export class NotificationsPage {
+
   notifications: any;
   background = "navy";
   code;
 
   constructor(private apiService: ApiService, private loading: LoadingComponent) { }
 
-  async ngOnInit() {
+  async ionViewWillEnter() {
 
     let loading = await this.loading.loading();
     loading.present();

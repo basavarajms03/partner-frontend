@@ -41,6 +41,10 @@ const routes: Routes = [
         path: '',
         redirectTo: '/tabs/dashboard',
         pathMatch: 'full'
+      },
+      {
+        path: 'notifications',
+        loadChildren: () => import('./notifications/notifications.module').then(m => m.NotificationsPageModule)
       }
     ]
   },
@@ -49,6 +53,7 @@ const routes: Routes = [
     redirectTo: '/tabs/dashboard',
     pathMatch: 'full'
   }
+
 ];
 
 @NgModule({

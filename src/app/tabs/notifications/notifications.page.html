@@ -16,14 +16,14 @@
 
 <ion-content *ngIf="notifications?.length != 0">
   <div class="ion-margin-top">
-    <ion-item lines="full" detail [routerLink]="[notification.url, notification.estimation_id]"
+    <ion-item lines="full" [routerLink]="[notification.url, notification.estimation_id]"
       *ngFor="let notification of notifications">
       <ion-avatar slot="start" class="avatar" [ngStyle]="{'background': background}"
-        [innerHTML]="code[notification?.created_email[0]].code">
+        [innerHTML]="notification?.customerInfo[0].name[0]">
       </ion-avatar>
       <ion-label>
-        <p class="notification-heading">{{notification?.message}}</p>
-        <p class="notification-by">{{notification?.created_email}}</p>
+        <span class="notification-heading">{{notification?.message}}</span>
+        <p class="notification-by">By {{notification?.customerInfo[0].name}}</p>
       </ion-label>
     </ion-item>
   </div>

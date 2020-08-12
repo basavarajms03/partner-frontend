@@ -21,11 +21,12 @@ export class Tab1Page implements OnInit {
 
 
   ionViewWillEnter() {
-    let params = {};
-    params['filter'] = {
-      status: 'New',
-      startWork: false
+    let statuses = {
+      requests: { "filter": { "status": "New", "startWork": false } },
+      pending: { "filter": { "status": { "$nin": ["New", "Completed"] }, "assignee_email": "ningu@gmail.com" } },
+      completed: { "filter": { "status": "Completed", "assignee_email": "ningu@gmail.com" } }
     };
+    let params = statuses[this.segment];
     this.checkWorkorders(params);
   }
 

@@ -42,6 +42,56 @@ export class MoreInfoComponent implements OnInit {
     });
   }
 
+  async startWorkorder() {
+    let params = {
+      filter: {
+        _id: this.result[0]._id
+      },
+      flag: 'inProgress',
+      user_email: this.result[0].created_email,
+      created_email: this.result[0].assignee_email,
+      update: {
+        status: "In-Progress"
+      },
+    }
+
+    let createLoading = await this.loadingController.loading();
+    (createLoading).present();
+
+    this.apiService.post('/v1/dashboard/startworkorder', params).subscribe(res => {
+      createLoading.dismiss();
+      if (res['code'] == "200") {
+        this.getSpecificWorkorder()
+      }
+    });
+  }
+
+  async completeWork() {
+
+    let params = {
+      filter: {
+        _id: this.result[0]._id
+      },
+      flag: 'Completed',
+      user_email: this.result[0].created_email,
+      created_email: this.result[0].assignee_email,
+      update: {
+        status: "Completed"
+      },
+    }
+
+    let createLoading = await this.loadingController.loading();
+    (createLoading).present();
+
+    this.apiService.post('/v1/dashboard/startworkorder', params).subscribe(res => {
+      createLoading.dismiss();
+      if (res['code'] == "200") {
+        this.getSpecificWorkorder()
+      }
+    });
+
+  }
+
   logout() {
     this.router.navigate(['/authentication/logout/true']);
   }

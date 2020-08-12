@@ -6,7 +6,7 @@
 
     <ion-buttons slot="end">
 
-      <ion-button [routerLink]="['/tabs/wallet/notification']">
+      <ion-button [routerLink]="['/tabs/notifications']">
         <ion-icon name="notifications"></ion-icon>
         <ion-badge color="danger" class="notification">{{notification_count}}</ion-badge>
       </ion-button>
@@ -19,7 +19,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-segment value="requests" scrollable (ionChange)="segmentChanged($event)">
+  <ion-segment [value]="segment" scrollable (ionChange)="segmentChanged($event)">
     <ion-segment-button class="ion-text-capitalize" value="requests" layout="icon-top">
       <ion-icon name="git-pull-request" class="request-icon"></ion-icon>
       <ion-label>Requests</ion-label>
@@ -38,16 +38,16 @@
   <div *ngIf="segment === 'requests' || segment === 'pending' || segment === 'completed'">
     <div *ngIf="result.length === 0" class="ion-padding ion-margin ion-text-center">
       <div *ngIf="segment === 'completed'">
-        <img src="/assets/no-completed.png">
+        <img src="/assets/no-completed.png" width="100px">
         <p class="ion-no-margin ion-no-padding">No Completed Workorders Found, Please Complete Workorders.</p>
       </div>
       <div *ngIf="segment === 'pending'">
-        <img src="/assets/no-pending.png">
+        <img src="/assets/no-pending.png" width="100px">
         <p class="ion-no-margin ion-no-padding">No Pending Workorders Found. If the workorder start will appear here.
         </p>
       </div>
       <div *ngIf="segment === 'requests'">
-        <img src="/assets/no-requests.png">
+        <img src="/assets/no-requests.png" width="100px">
         <p class="ion-no-margin ion-no-padding">No Requests Workorders Found. If workorders created by customers will
           appear here.</p>
       </div>
