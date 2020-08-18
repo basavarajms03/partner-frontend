@@ -1,16 +1,17 @@
 <ion-header *ngIf="result.length > 0">
   <ion-toolbar color="primary">
-    <ion-title>{{result[0]?.problemType}}</ion-title>
+    <ion-title>{{ result[0]?.problemType }}</ion-title>
 
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
 
     <ion-buttons slot="end">
-
       <ion-button [routerLink]="['/tabs/notifications']">
         <ion-icon name="notifications"></ion-icon>
-        <ion-badge color="danger" class="notification">{{notification_count}}</ion-badge>
+        <ion-badge color="danger" class="notification">{{
+          notification_count
+        }}</ion-badge>
       </ion-button>
 
       <ion-button (click)="logout()">
@@ -25,70 +26,92 @@
     <ion-item lines="none">
       <ion-label>
         <span>Customer Name</span>
-        <p>{{result[0]?.fullName}}</p>
+        <p>{{ result[0]?.fullName }}</p>
       </ion-label>
     </ion-item>
     <ion-item lines="none" *ngIf="result[0].status === 'Completed'">
       <ion-label>
         <span>Payment</span>
-        <p><b>Pending</b></p>
+        <p [ngClass]="result[0]?.paymentStatus !== 'Paid' ? 'notPaid' : 'paid'">
+          <b>{{ result[0]?.paymentStatus }}</b>
+        </p>
       </ion-label>
     </ion-item>
     <ion-item lines="none">
       <ion-label>
         <span>Workorder Status</span>
-        <p [ngClass]="[
-        result[0].status === 'Rejected'?  'rejected' : '',
-        result[0].status === 'Start Work'?  'startwork' : '',
-        result[0].status === 'New'?  'new' : '',
-        result[0].status === 'In-Progress'?  'inProgress' : '',
-        result[0].status === 'Active'?  'active' : '',
-        result[0].status === 'Completed'?  'resolved' : '',
-        result[0].status === 'Cancelled'?  'cancelled' : '',
-        result[0].status === 'Work Assigned'?  'work-assigned' : ''
-        ]">{{result[0]?.status}}</p>
+        <p
+          [ngClass]="[
+            result[0].status === 'Rejected' ? 'rejected' : '',
+            result[0].status === 'Start Work' ? 'startwork' : '',
+            result[0].status === 'New' ? 'new' : '',
+            result[0].status === 'In-Progress' ? 'inProgress' : '',
+            result[0].status === 'Active' ? 'active' : '',
+            result[0].status === 'Completed' ? 'resolved' : '',
+            result[0].status === 'Cancelled' ? 'cancelled' : '',
+            result[0].status === 'Work Assigned' ? 'work-assigned' : ''
+          ]"
+        >
+          {{ result[0]?.status }}
+        </p>
       </ion-label>
     </ion-item>
   </ion-list>
   <ion-item lines="none">
     <ion-label>
       <span>Location</span>
-      <p>{{result[0]?.location}}</p>
+      <p>{{ result[0]?.location }}</p>
     </ion-label>
   </ion-item>
   <ion-item lines="none">
     <ion-label>
       <span>Customer Address</span>
-      <p>{{result[0]?.address}}</p>
+      <p>{{ result[0]?.address }}</p>
     </ion-label>
   </ion-item>
   <ion-item lines="none">
     <ion-label>
-      <span>Customer Address</span>
-      <p>{{result[0]?.createdAt | date : 'long'}}</p>
+      <span>Created Date</span>
+      <p>{{ result[0]?.createdAt | date: "d-MM-y h:mm a" }}</p>
     </ion-label>
   </ion-item>
   <ion-item lines="none">
     <ion-label>
       <span>Description</span>
-      <p class="ion-text-wrap ion-text-justify">{{result[0]?.description}}</p>
+      <p class="ion-text-wrap ion-text-justify">{{ result[0]?.description }}</p>
     </ion-label>
   </ion-item>
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-button expand="full" class="ion-text-capitalize"
-          [routerLink]="['/tabs/dashboard/estimate', {_id: result[0]?._id, created_email: result[0].created_email}]"
-          [disabled]="result[0]?.startWork">Add
-          Estimation</ion-button>
+        <ion-button
+          expand="full"
+          class="ion-text-capitalize"
+          [routerLink]="[
+            '/tabs/dashboard/estimate',
+            { _id: result[0]?._id, created_email: result[0].created_email }
+          ]"
+          [disabled]="result[0]?.startWork"
+          >Add Estimation</ion-button
+        >
       </ion-col>
       <ion-col>
-        <ion-button expand="full" class="ion-text-capitalize startwork"
-          *ngIf="result[0]?.status === 'New' || result[0].status === 'Active'" [disabled]="result[0]?.status === 'New'"
-          (click)="startWorkorder()">
-          Start</ion-button>
-        <ion-button expand="full" class="ion-text-capitalize startwork" *ngIf="result[0]?.status === 'In-Progress'"
-          (click)="completeWork()">Complete</ion-button>
+        <ion-button
+          expand="full"
+          class="ion-text-capitalize startwork"
+          *ngIf="result[0]?.status === 'New' || result[0].status === 'Active'"
+          [disabled]="result[0]?.status === 'New'"
+          (click)="startWorkorder()"
+        >
+          Start</ion-button
+        >
+        <ion-button
+          expand="full"
+          class="ion-text-capitalize startwork"
+          *ngIf="result[0]?.status === 'In-Progress'"
+          (click)="completeWork()"
+          >Complete</ion-button
+        >
       </ion-col>
     </ion-row>
   </ion-grid>

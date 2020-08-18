@@ -4,24 +4,56 @@
       Wallet
     </ion-title>
     <ion-buttons slot="end">
-
       <ion-button [routerLink]="['/tabs/notifications']">
         <ion-icon name="notifications"></ion-icon>
-        <ion-badge color="danger" class="notification">{{notification_count}}</ion-badge>
+        <ion-badge color="danger" class="notification"
+          >{{notification_count}}</ion-badge
+        >
       </ion-button>
 
       <ion-button (click)="logout()">
         <ion-icon name="log-out-outline"></ion-icon>
       </ion-button>
-
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-text-center ion-margin ion-padding">
-    <img src="/assets/no-transaction.png" width="145px" alt="" srcset="">
-    <p class="ion-no-margin ion-no-padding">No Transaction Found For You. Once the payment done by the customer, that
-      can be visible here.</p>
+  <div
+    class="ion-text-center ion-margin ion-padding"
+    *ngIf="paymentData?.length == 0"
+  >
+    <img src="/assets/no-transaction.png" width="145px" alt="" srcset="" />
+    <p class="ion-no-margin ion-no-padding">
+      No Transaction Found For You. Once the payment done by the customer, that
+      can be visible here.
+    </p>
+  </div>
+  <div>
+    <ion-item *ngFor="let paymentInfo of paymentData" lines="full">
+      <ion-label>
+        <ion-grid class="ion-no-padding">
+          <ion-row class="ion-no-padding">
+            <ion-col>
+              <ion-text color="dark"
+                >{{ (paymentInfo?.created_info)[0].name }}</ion-text
+              >
+            </ion-col>
+            <ion-col class="ion-text-right ion-text-small content">
+              {{ paymentInfo?.updatedAt | date }}
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-no-padding">
+            <ion-col>
+              <p>
+                <ion-text color="danger"
+                  >Status: <b>{{ paymentInfo?.paymentStatus }}</b>
+                </ion-text>
+              </p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-label>
+    </ion-item>
   </div>
 </ion-content>
