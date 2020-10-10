@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "531917597461",
+    "firebase_url": "https://skenterprises-b2a27.firebaseio.com",
+    "project_id": "skenterprises-b2a27",
+    "storage_bucket": "skenterprises-b2a27.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531917597461:android:a0443e9532d2de4f0b571c",
+        "android_client_info": {
+          "package_name": "com.skenterprises.labour"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "531917597461-k0rb0r0a7lne0t9p148jt1a1r91k9inm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.skenterprises.labour",
+            "certificate_hash": "503700a80103968c4b9ed8e235f2be43ec15a6a5"
+          }
+        },
+        {
+          "client_id": "531917597461-v9ljsurrjoqf1ncgl93h4hc30oo0nqn4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdrXCRIuHV8w-3kd2TXm3kt3rb2DfRMlk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "531917597461-v9ljsurrjoqf1ncgl93h4hc30oo0nqn4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

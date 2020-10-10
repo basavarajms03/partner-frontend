@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './authentication/login/login.component';
 import { CreateAccountComponent } from './authentication/create-account/create-account.component';
+import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   {
@@ -14,6 +15,10 @@ const routes: Routes = [
       {
         path: 'createAccount',
         component: CreateAccountComponent
+      },
+      {
+        path: 'forgot-password',
+        component: ForgotPasswordComponent
       },
       {
         path: 'logout/:status',

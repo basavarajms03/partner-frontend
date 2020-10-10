@@ -11,10 +11,27 @@
       <h3>Login Your Account</h3>
     </div>
     <div>
-      <ion-input type="number" placeholder="Phone Number" class="input" formControlName="username"></ion-input>
+      <ion-input
+        type="number"
+        placeholder="Phone Number"
+        class="input"
+        formControlName="username"
+      ></ion-input>
     </div>
     <div class="ion-margin-top">
-      <ion-input type="password" placeholder="Password" class="input" formControlName="password"></ion-input>
+      <ion-input
+        type="password"
+        placeholder="Password"
+        class="input"
+        formControlName="password"
+      ></ion-input>
+    </div>
+    <div class="ion-text-right ion-padding-right forget">
+      <p>
+        <a [routerLink]="['/authentication/forgot-password']"
+          >Forgot Password?</a
+        >
+      </p>
     </div>
     <div class="ion-margin-top ion-text-center">
       <ion-button type="submit" class="submit">Submit</ion-button>
@@ -24,7 +41,9 @@
     <span class="ion-margin-top hr-line">Or</span>
   </div>
   <div class="ion-margin-top ion-text-center">
-    <ion-button class="google-submit ion-text-capitalize">Login With Google</ion-button>
+    <ion-button class="google-submit ion-text-capitalize"
+      >Login With Google</ion-button
+    >
   </div>
   <div class="ion-text-center ion-margin-top">
     <span class="account">

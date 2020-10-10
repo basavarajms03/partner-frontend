@@ -1,39 +1,52 @@
 .hr-line::before {
-    content: "";
-    background-color: #000;
-    display: inline-block;
-    height: 1px;
-    vertical-align: middle;
-    width: 80px;
-    margin-right: 5px;
+  content: "";
+  background-color: #000;
+  display: inline-block;
+  height: 1px;
+  vertical-align: middle;
+  width: 80px;
+  margin-right: 5px;
+}
+.hr-line::after {
+  content: "";
+  background-color: #000;
+  display: inline-block;
+  height: 1px;
+  vertical-align: middle;
+  width: 80px;
+  margin-left: 5px;
+}
+
+.google-submit {
+  --background: #da4b39;
+  --border-radius: 30px;
+  --padding-bottom: 20px;
+  --padding-start: 30px;
+  --padding-end: 30px;
+  --padding-top: 20px;
+  width: 210px;
+}
+
+.account {
+  color: #787272;
+  font-weight: 700;
+
+  a {
+    text-decoration: none;
+    color: #244591;
   }
-  .hr-line::after {
-    content: "";
-    background-color: #000;
-    display: inline-block;
-    height: 1px;
-    vertical-align: middle;
-    width: 80px;
-    margin-left: 5px;
+}
+
+.forget {
+  color: #787272;
+  font-weight: 700;
+
+  a {
+    text-decoration: none;
+    color: #6c757d !important;
+    font-size: 14px;
+    position: relative;
+    bottom: 8px;
+    right: 14px;
   }
-  
-  .google-submit {
-    --background: #da4b39;
-    --border-radius: 30px;
-    --padding-bottom: 20px;
-    --padding-start: 30px;
-    --padding-end: 30px;
-    --padding-top: 20px;
-    width: 210px;
-  }
-  
-  .account {
-    color: #787272;
-    font-weight: 700;
-  
-    a {
-      text-decoration: none;
-      color: #244591;
-    }
-  }
-  
+}
