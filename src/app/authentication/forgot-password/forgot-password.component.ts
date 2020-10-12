@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
 import { ApiService } from 'src/app/shared/api.service';
@@ -18,7 +19,8 @@ export class ForgotPasswordComponent implements OnInit {
   verifier;
   verificationId;
   showVerifyForm = false;
-  constructor(private fb: FormBuilder, private loadingCtrl: LoadingComponent, private alertCtrl: AlertComponent, private apiService: ApiService) { }
+  constructor(private fb: FormBuilder,
+    private router: Router, private loadingCtrl: LoadingComponent, private alertCtrl: AlertComponent, private apiService: ApiService) { }
 
   ngOnInit() {
     this.forgotForm = this.fb.group({
@@ -37,12 +39,14 @@ export class ForgotPasswordComponent implements OnInit {
     let params = { phoneNumber: this.forgotForm.value.email }
     this.apiService.post('/v1/auth/profile', params).subscribe(response => {
       if (response['data']) {
-        this.showVerifyForm = true;
-        loading.dismiss();
-        this.forgotForm.controls['email'].disable();
         firebase.auth().signInWithPhoneNumber(`+91${this.forgotForm.value.email}`, this.verifier).then(data => {
+          this.showVerifyForm = true;
+          loading.dismiss();
+          this.forgotForm.controls['email'].disable();
           this.verificationId = data.verificationId;
         }).catch(error => {
+          loading.dismiss();
+          this.alertCtrl.createAlert('Alert!', 'System Error Please try again!');
           console.log("Error", error);
         });
       } else {
@@ -62,6 +66,7 @@ export class ForgotPasswordComponent implements OnInit {
       if (successResponse) {
         loading.dismiss();
         this.alertCtrl.createAlert('Success!', 'Mobile number is verified!');
+        this.router.navigate(['/authentication/reset-password', { phoneNumber: this.forgotForm.value.email }]);
       }
     }).catch(error => {
       loading.dismiss();

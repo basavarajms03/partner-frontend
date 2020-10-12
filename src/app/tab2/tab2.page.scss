@@ -28,3 +28,14 @@ ion-content ion-toolbar {
 .heading {
   font-weight: 700;
 }
+
+.darkgray {
+  color: darkgray;
+}
+
+.secondary {
+  --background: white;
+  --box-shadow: none;
+  color: navy;
+  border: 1px solid;
+}

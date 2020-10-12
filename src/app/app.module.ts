@@ -17,6 +17,7 @@ import { AlertComponent } from './shared/alert/alert.component';
 import { LoadingComponent } from './shared/loading/loading.component';
 import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
 import * as firebase from 'firebase';
+import { ResetPasswordComponent } from './authentication/forgot-password/reset-password/reset-password.component';
 
 firebase.initializeApp({
   apiKey: "AIzaSyATfZFcqhGE2-8--hKteVtUsADjPxlxwlY",
@@ -30,7 +31,7 @@ firebase.initializeApp({
 });
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, CreateAccountComponent, ForgotPasswordComponent, AlertComponent, LoadingComponent],
+  declarations: [AppComponent, ResetPasswordComponent, LoginComponent, CreateAccountComponent, ForgotPasswordComponent, AlertComponent, LoadingComponent],
   entryComponents: [],
   imports: [BrowserModule, HttpClientModule, IonicModule.forRoot(), AppRoutingModule, ReactiveFormsModule, FormsModule],
   providers: [

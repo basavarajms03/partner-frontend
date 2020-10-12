@@ -1,14 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title>
-      Profile
-    </ion-title>
+    <ion-title> Profile </ion-title>
 
     <ion-buttons slot="end">
-
       <ion-button [routerLink]="['/tabs/notifications']">
         <ion-icon name="notifications"></ion-icon>
-        <ion-badge color="danger" class="notification">{{notification_count}}</ion-badge>
+        <ion-badge color="danger" class="notification"
+          >{{notification_count}}</ion-badge
+        >
       </ion-button>
 
       <ion-button (click)="logout()">
@@ -20,12 +19,16 @@
 
 <ion-content>
   <div class="avatar-main">
-    <img src="/assets/avatar.png" class="img">
+    <img src="/assets/avatar.png" class="img" />
     <h4>{{profileData?.name}}</h4>
     <p>{{profileData?.registrationType}}</p>
   </div>
 
-  <ion-segment class="padding" value="personal" (ionChange)="segmentChange($event)">
+  <ion-segment
+    class="padding"
+    value="personal"
+    (ionChange)="segmentChange($event)"
+  >
     <ion-segment-button value="personal">
       <ion-label class="ion-text-capitalize"><b>Personal Info</b></ion-label>
     </ion-segment-button>
@@ -35,21 +38,69 @@
   </ion-segment>
 
   <ion-list *ngIf="category === 'personal' && profileData">
-    <ion-item>
-      <ion-label>{{profileData?.name}}</ion-label>
+    <ion-item lines="full">
+      <ion-label>
+        <span>Name</span>
+        <p class="darkgray">{{profileData?.name}}</p>
+      </ion-label>
     </ion-item>
-    <ion-item>
-      <ion-label>{{profileData?.phoneNumber}}</ion-label>
+    <ion-item lines="full">
+      <ion-label>
+        <span>Mobile No</span>
+        <p class="darkgray">{{profileData?.phoneNumber}}</p>
+      </ion-label>
     </ion-item>
-    <ion-item>
-      <ion-label>{{profileData?.email}}</ion-label>
+    <ion-item lines="full">
+      <ion-label>
+        <span>Email Id</span>
+        <p class="darkgray">{{profileData?.email}}</p>
+      </ion-label>
     </ion-item>
-    <ion-item>
-      <ion-label>{{profileData?.address}}</ion-label>
+    <ion-item lines="full">
+      <ion-label>
+        <span>Address</span>
+        <p class="darkgray">{{profileData?.address}}</p>
+      </ion-label>
     </ion-item>
     <ion-item lines="none">
-      <ion-label>{{profileData?.city}}</ion-label>
+      <ion-label>
+        <span>City</span>
+        <p class="darkgray">{{profileData?.city}}</p>
+      </ion-label>
     </ion-item>
+    <ion-label class="ion-padding" color="primary">
+      <b>Accounts Information</b>
+    </ion-label>
+    <ion-item lines="full">
+      <ion-label>
+        <span>Bank Name</span>
+        <p class="darkgray">Karnatak Bank</p>
+      </ion-label>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label>
+        <span>Name On Bank</span>
+        <p class="darkgray">Basavaraj M S</p>
+      </ion-label>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label>
+        <span>Account No</span>
+        <p class="darkgray">1832500102403801</p>
+      </ion-label>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>
+        <span>IFSC Code</span>
+        <p class="darkgray">KARB0000123</p>
+      </ion-label>
+    </ion-item>
+    <div class="ion-text-center">
+      <ion-button class="secondary ion-text-capitalize"
+        ><ion-icon name="add-circle-outline"></ion-icon>&nbsp; Add Bank
+        Details</ion-button
+      >
+    </div>
   </ion-list>
 
   <div *ngIf="category !== 'personal'" class="ion-padding">
@@ -58,17 +109,37 @@
         <h4 class="heading">Change Password</h4>
       </div>
       <div>
-        <ion-input type="password" placeholder="Old Password" class="input" formControlName="oldPassword"></ion-input>
+        <ion-input
+          type="password"
+          placeholder="Old Password"
+          class="input"
+          formControlName="oldPassword"
+        ></ion-input>
       </div>
       <div class="ion-margin-top">
-        <ion-input type="password" placeholder="New Password" class="input" formControlName="password"></ion-input>
+        <ion-input
+          type="password"
+          placeholder="New Password"
+          class="input"
+          formControlName="password"
+        ></ion-input>
       </div>
       <div class="ion-margin-top">
-        <ion-input type="password" placeholder="Confirm Password" class="input" formControlName="confPassword">
+        <ion-input
+          type="password"
+          placeholder="Confirm Password"
+          class="input"
+          formControlName="confPassword"
+        >
         </ion-input>
       </div>
       <div class="ion-margin-top ion-text-center">
-        <ion-button type="submit" class="submit" [disabled]="!changePassword.valid">Change Password</ion-button>
+        <ion-button
+          type="submit"
+          class="submit"
+          [disabled]="!changePassword.valid"
+          >Change Password</ion-button
+        >
       </div>
     </form>
   </div>
