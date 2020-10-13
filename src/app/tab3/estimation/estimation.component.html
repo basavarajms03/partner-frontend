@@ -5,16 +5,16 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-buttons slot="end">
-
       <ion-button [routerLink]="['/tabs/notifications']">
-        <ion-icon name="notifications"></ion-icon>
-        <ion-badge color="danger" class="notification">{{notification_count}}</ion-badge>
+        <i class="material-icons">notifications_none </i>
+        <ion-badge color="danger" class="notification">{{
+          notification_count
+        }}</ion-badge>
       </ion-button>
 
       <ion-button (click)="logout()">
-        <ion-icon name="log-out-outline"></ion-icon>
+        <i class="material-icons">exit_to_app </i>
       </ion-button>
-
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -25,67 +25,108 @@
       <h6 class="heading">Customer Estimation</h6>
     </div>
     <div>
-      <ion-input type="text" placeholder="Item Name" class="input" formControlName="itemName"
-        [disabled]="itemInfo?.finalSubmission"></ion-input>
-      <ion-label class="ion-text-small" *ngIf="estimationForm.controls.itemName.invalid && estimationForm.controls.itemName.touched
-      ">Field Is Required</ion-label>
+      <ion-input
+        type="text"
+        placeholder="Item Name"
+        class="input"
+        formControlName="itemName"
+        [disabled]="itemInfo?.finalSubmission"
+      ></ion-input>
+      <ion-label
+        class="ion-text-small"
+        *ngIf="
+          estimationForm.controls.itemName.invalid &&
+          estimationForm.controls.itemName.touched
+        "
+        >Field Is Required</ion-label
+      >
     </div>
     <div class="ion-margin-top">
-      <ion-input type="number" placeholder="Price" class="input" formControlName="price"
-        [disabled]="itemInfo?.finalSubmission"></ion-input>
-      <ion-label class="ion-text-small" *ngIf="estimationForm.controls.price.invalid && estimationForm.controls.price.touched
-      ">Field Is Required</ion-label>
+      <ion-input
+        type="number"
+        placeholder="Price"
+        class="input"
+        formControlName="price"
+        [disabled]="itemInfo?.finalSubmission"
+      ></ion-input>
+      <ion-label
+        class="ion-text-small"
+        *ngIf="
+          estimationForm.controls.price.invalid &&
+          estimationForm.controls.price.touched
+        "
+        >Field Is Required</ion-label
+      >
     </div>
     <div class="ion-margin-top ion-text-center">
-      <ion-button type="submit" class="submit ion-text-capitalize"
-        [disabled]="!estimationForm.valid || itemInfo?.finalSubmission">Add Item</ion-button>
-      <Span class="cancel-button" *ngIf="edit" (click)="editCancel()">Cancel</Span>
+      <ion-button
+        type="submit"
+        class="submit ion-text-capitalize"
+        [disabled]="!estimationForm.valid || itemInfo?.finalSubmission"
+        >Add Item</ion-button
+      >
+      <Span class="cancel-button" *ngIf="edit" (click)="editCancel()"
+        >Cancel</Span
+      >
     </div>
   </form>
 
   <ion-item lines="none">
     <div class="ion-margin-top heading">Added Items</div>
-    <div class="ion-margin-top ion-margin-start heading total">Total Est = {{total}}</div>
+    <div class="ion-margin-top ion-margin-start heading total">
+      Total Est = {{ total }}
+    </div>
   </ion-item>
 
   <div class="ion-text-center" *ngIf="itemInfo?.items.length == 0 || !itemInfo">
-    <img src="/assets/estimate-icons.png" class="nodata-img">
+    <img src="/assets/estimate-icons.png" class="nodata-img" />
     <h6 class="heading-info">No Estimation Added</h6>
-    <p class="ion-text-capitalize paragraph">Add Your Complete Estimation with Full Name of The item</p>
+    <p class="ion-text-capitalize paragraph">
+      Add Your Complete Estimation with Full Name of The item
+    </p>
   </div>
 
   <div *ngIf="itemInfo?.items.length > 0">
     <ion-card *ngFor="let items of itemInfo.items">
       <ion-item lines="none">
-
         <ion-label>
-          <h2>{{items?.itemName}}</h2>
-          <p><b>Rs. </b>{{items?.price}}</p>
+          <h2>{{ items?.itemName }}</h2>
+          <p><b>Rs. </b>{{ items?.price }}</p>
         </ion-label>
 
         <div class="icons" *ngIf="!itemInfo?.finalSubmission">
-          <ion-icon name="trash-outline" class="del-icons-info" (click)="deleteItem(items?._id)">
+          <ion-icon
+            name="trash-outline"
+            class="del-icons-info"
+            (click)="deleteItem(items?._id)"
+          >
           </ion-icon>
-          <ion-icon name="create-outline" class="edit-icons-info"
-            (click)="itemEdit(items?.itemName, items?.price, items?._id)"></ion-icon>
+          <ion-icon
+            name="create-outline"
+            class="edit-icons-info"
+            (click)="itemEdit(items?.itemName, items?.price, items?._id)"
+          ></ion-icon>
         </div>
-
       </ion-item>
     </ion-card>
     <div class="ion-text-center" *ngIf="!itemInfo?.finalSubmission">
-      <ion-button type="submit" class="submit ion-text-capitalize final-submission" (click)="promptAlert()">Submit
-        Estimation</ion-button>
+      <ion-button
+        type="submit"
+        class="submit ion-text-capitalize final-submission"
+        (click)="promptAlert()"
+        >Submit Estimation</ion-button
+      >
     </div>
   </div>
 </ion-content>
 
 <ion-content *ngIf="admin && resultInfo" class="ion-padding">
-
   <div class="ion-text-center" *ngIf="resultInfo?.length == 0">
-    <img src="/assets/estimate-icons.png" class="nodata-img">
+    <img src="/assets/estimate-icons.png" class="nodata-img" />
     <h6 class="heading-info">No Estimation Added</h6>
     <p class="ion-text-capitalize paragraph">
-      Please check after some time, you may receive some estimation based on your requests,
+      Please check after some time, you may receive some estimation based on
+      your requests,
       <br />Thank You
     </p>
   </div>
@@ -98,16 +139,17 @@
       <ion-grid class="rm-padd">
         <ion-row>
           <ion-col class="rm-padd">
-            <h2 class="ion-text-capitalize">{{items?.userInfo[0].name}}</h2>
+            <h2 class="ion-text-capitalize">{{ items?.userInfo[0].name }}</h2>
           </ion-col>
           <ion-col class="rm-padd">
             <h2 class="ion-text-capitalize ion-text-end text-muted">
-              <ion-icon name="location-outline" class="icons-data"></ion-icon> {{items?.userInfo[0].city}}
+              <ion-icon name="location-outline" class="icons-data"></ion-icon>
+              {{ items?.userInfo[0].city }}
             </h2>
           </ion-col>
         </ion-row>
       </ion-grid>
-      <p>Total Charge: &#x20B9; {{items?.total}}</p>
+      <p>Total Charge: &#x20B9; {{ items?.total }}</p>
     </ion-label>
   </ion-item>
 </ion-content>

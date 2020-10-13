@@ -34,7 +34,10 @@
       </p>
     </div>
     <div class="ion-margin-top ion-text-center">
-      <ion-button type="submit" class="submit">Submit</ion-button>
+      <ion-button type="submit" class="submit" [disabled]="form.invalid">
+        <i class="material-icons icons">login</i>
+        <span>Login</span>
+      </ion-button>
     </div>
   </form>
   <div class="ion-text-center ion-margin-top">
@@ -47,7 +50,7 @@
   </div>
   <div class="ion-text-center ion-margin-top">
     <span class="account">
-      Don't Have Account?
+      <span style="font-weight: 500">Don't Have Account? &nbsp;</span>
       <a [routerLink]="['/authentication/createAccount']">Sign Up</a>
     </span>
   </div>

@@ -36,7 +36,7 @@ export class ForgotPasswordComponent implements OnInit {
   async sendOTP() {
     let loading = await this.loadingCtrl.loading();
     loading.present();
-    let params = { phoneNumber: this.forgotForm.value.email }
+    let params = { phoneNumber: this.forgotForm.value.email, "registrationType": "Worker" }
     this.apiService.post('/v1/auth/profile', params).subscribe(response => {
       if (response['data']) {
         firebase.auth().signInWithPhoneNumber(`+91${this.forgotForm.value.email}`, this.verifier).then(data => {

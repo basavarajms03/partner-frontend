@@ -1,60 +1,89 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title>
-      Dashboard
-    </ion-title>
+    <ion-title> Dashboard </ion-title>
 
     <ion-buttons slot="end">
-
       <ion-button [routerLink]="['/tabs/notifications']">
-        <ion-icon name="notifications"></ion-icon>
-        <ion-badge color="danger" class="notification">{{notification_count}}</ion-badge>
+        <i class="material-icons">notifications_none </i>
+        <ion-badge color="danger" class="notification"
+          >{{notification_count}}</ion-badge
+        >
       </ion-button>
 
       <ion-button (click)="logout()">
-        <ion-icon name="log-out-outline"></ion-icon>
+        <i class="material-icons">exit_to_app </i>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-segment [value]="segment" scrollable (ionChange)="segmentChanged($event)">
-    <ion-segment-button class="ion-text-capitalize" value="requests" layout="icon-top">
+  <ion-segment
+    [value]="segment"
+    scrollable
+    (ionChange)="segmentChanged($event)"
+  >
+    <ion-segment-button
+      class="ion-text-capitalize"
+      value="requests"
+      layout="icon-top"
+    >
       <ion-icon name="git-pull-request" class="request-icon"></ion-icon>
       <ion-label>Requests</ion-label>
     </ion-segment-button>
-    <ion-segment-button class="ion-text-capitalize" value="pending" layout="icon-top">
+    <ion-segment-button
+      class="ion-text-capitalize"
+      value="pending"
+      layout="icon-top"
+    >
       <ion-img src="/assets/pending.png" class="pending-icon"></ion-img>
       <ion-label>Pending</ion-label>
     </ion-segment-button>
-    <ion-segment-button class="ion-text-capitalize" value="completed" layout="icon-top">
+    <ion-segment-button
+      class="ion-text-capitalize"
+      value="completed"
+      layout="icon-top"
+    >
       <ion-icon name="checkmark-circle-outline" class="completed-icon">
       </ion-icon>
       <ion-label>Completed</ion-label>
     </ion-segment-button>
   </ion-segment>
 
-  <div *ngIf="segment === 'requests' || segment === 'pending' || segment === 'completed'">
-    <div *ngIf="result.length === 0" class="ion-padding ion-margin ion-text-center">
+  <div
+    *ngIf="segment === 'requests' || segment === 'pending' || segment === 'completed'"
+  >
+    <div
+      *ngIf="result.length === 0"
+      class="ion-padding ion-margin ion-text-center"
+    >
       <div *ngIf="segment === 'completed'">
-        <img src="/assets/no-completed.png" width="100px">
-        <p class="ion-no-margin ion-no-padding">No Completed Workorders Found, Please Complete Workorders.</p>
+        <img src="/assets/no-completed.png" width="100px" />
+        <p class="ion-no-margin ion-no-padding">
+          No Completed Workorders Found, Please Complete Workorders.
+        </p>
       </div>
       <div *ngIf="segment === 'pending'">
-        <img src="/assets/no-pending.png" width="100px">
-        <p class="ion-no-margin ion-no-padding">No Pending Workorders Found. If the workorder start will appear here.
+        <img src="/assets/no-pending.png" width="100px" />
+        <p class="ion-no-margin ion-no-padding">
+          No Pending Workorders Found. If the workorder start will appear here.
         </p>
       </div>
       <div *ngIf="segment === 'requests'">
-        <img src="/assets/no-requests.png" width="100px">
-        <p class="ion-no-margin ion-no-padding">No Requests Workorders Found. If workorders created by customers will
-          appear here.</p>
+        <img src="/assets/no-requests.png" width="100px" />
+        <p class="ion-no-margin ion-no-padding">
+          No Requests Workorders Found. If workorders created by customers will
+          appear here.
+        </p>
       </div>
     </div>
     <div *ngIf="result.length !== 0">
-      <ion-item *ngFor="let workrorders of result" class="ion-no-padding" lines="full"
-        [routerLink]="['/tabs/dashboard/more-info', workrorders._id]">
+      <ion-item
+        *ngFor="let workrorders of result"
+        class="ion-no-padding"
+        lines="full"
+        [routerLink]="['/tabs/dashboard/more-info', workrorders._id]"
+      >
         <ion-avatar slot="start">
           <ion-icon name="briefcase" class="icon-start"></ion-icon>
         </ion-avatar>
@@ -64,7 +93,9 @@
               <ion-col class="ion-text-capitalize ion-no-padding">
                 <span>{{workrorders.fullName}}</span>
               </ion-col>
-              <ion-col class="ion-text-capitalize ion-no-padding ion-text-right" [ngClass]="[
+              <ion-col
+                class="ion-text-capitalize ion-no-padding ion-text-right"
+                [ngClass]="[
             workrorders.status === 'Rejected'?  'rejected' : '',
             workrorders.status === 'Start Work'?  'startwork' : '',
             workrorders.status === 'New'?  'new' : '',
@@ -73,7 +104,9 @@
             workrorders.status === 'Completed'?  'resolved' : '',
             workrorders.status === 'Cancelled'?  'cancelled' : '',
             workrorders.status === 'Work Assigned'?  'work-assigned' : ''
-            ]">{{workrorders.status}}</ion-col>
+            ]"
+                >{{workrorders.status}}</ion-col
+              >
             </ion-row>
           </ion-grid>
           <p>{{workrorders.description}}</p>
@@ -81,5 +114,4 @@
       </ion-item>
     </div>
   </div>
-
 </ion-content>

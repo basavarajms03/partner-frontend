@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['tab2.page.scss'],
   providers: [AlertComponent, LoadingComponent]
 })
-export class Tab2Page implements OnInit {
+export class Tab2Page {
 
   category = "personal";
   changePassword: FormGroup;
@@ -21,7 +21,7 @@ export class Tab2Page implements OnInit {
   constructor(private alert: AlertComponent, private loading: LoadingComponent, private apiService: ApiService,
     private router: Router) { }
 
-  async ngOnInit() {
+  async ionViewWillEnter() {
     this.changePassword = new FormGroup({
       oldPassword: new FormControl(null, [Validators.required]),
       password: new FormControl(null, [Validators.required]),

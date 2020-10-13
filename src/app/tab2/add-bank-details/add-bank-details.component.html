@@ -1,3 +1,98 @@
-<p>
-  add-bank-details works!
-</p>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Add Bank Details</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form autocomplete="off" [formGroup]="bankForm" (ngSubmit)="onSubmit()">
+    <div class="ion-margin-top">
+      <ion-label class="label">Bank Name</ion-label>
+      <ion-input
+        type="text"
+        placeholder="Name of the bank"
+        class="input ion-text-uppercase"
+        formControlName="bankName"
+      >
+      </ion-input>
+      <p
+        class="error"
+        *ngIf="
+          bankForm.controls['bankName'].hasError('required') &&
+          bankForm.controls['bankName'].touched
+        "
+        padding
+      >
+        Enter bank name
+      </p>
+    </div>
+    <div class="ion-margin-top">
+      <ion-label class="label">Full Name</ion-label>
+      <ion-input
+        type="text"
+        placeholder="Name as per bank passbook"
+        class="input ion-text-uppercase"
+        formControlName="nameasperbank"
+      >
+      </ion-input>
+      <p
+        class="error"
+        *ngIf="
+          bankForm.controls['nameasperbank'].hasError('required') &&
+          bankForm.controls['nameasperbank'].touched
+        "
+        padding
+      >
+        Enter name as per bank passbook
+      </p>
+    </div>
+    <div class="ion-margin-top">
+      <ion-label class="label">Account No</ion-label>
+      <ion-input
+        type="number"
+        placeholder="Account No"
+        class="input ion-text-uppercase"
+        formControlName="accountNo"
+      >
+      </ion-input>
+      <p
+        class="error"
+        *ngIf="
+          bankForm.controls['accountNo'].hasError('required') &&
+          bankForm.controls['accountNo'].touched
+        "
+        padding
+      >
+        Enter account no
+      </p>
+    </div>
+    <div class="ion-margin-top">
+      <ion-label class="label">IFSC Code</ion-label>
+      <ion-input
+        type="text"
+        placeholder="IFSC Code"
+        class="input ion-text-uppercase"
+        formControlName="ifscCode"
+      >
+      </ion-input>
+      <p
+        class="error"
+        *ngIf="
+          bankForm.controls['ifscCode'].hasError('required') &&
+          bankForm.controls['ifscCode'].touched
+        "
+        padding
+      >
+        Enter IFSC Code
+      </p>
+    </div>
+    <div class="ion-margin-top ion-text-center">
+      <ion-button type="submit" class="submit" [disabled]="bankForm.invalid"
+        >Submit</ion-button
+      >
+    </div>
+  </form>
+</ion-content>

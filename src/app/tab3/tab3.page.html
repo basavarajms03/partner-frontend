@@ -1,18 +1,16 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title>
-      Wallet
-    </ion-title>
+    <ion-title> Wallet </ion-title>
     <ion-buttons slot="end">
       <ion-button [routerLink]="['/tabs/notifications']">
-        <ion-icon name="notifications"></ion-icon>
+        <i class="material-icons">notifications_none </i>
         <ion-badge color="danger" class="notification"
           >{{notification_count}}</ion-badge
         >
       </ion-button>
 
       <ion-button (click)="logout()">
-        <ion-icon name="log-out-outline"></ion-icon>
+        <i class="material-icons">exit_to_app </i>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

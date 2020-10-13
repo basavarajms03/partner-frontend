@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title class="ion-text-center">Create Account</ion-title>
+    <ion-title>Update Basic Details</ion-title>
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="basicupdationform" (ngSubmit)="onSubmit()">
     <div>
       <ion-input
         type="text"
@@ -24,14 +24,6 @@
         class="input"
         placeholder="Phone Number"
         formControlName="phoneNumber"
-      ></ion-input>
-    </div>
-    <div class="ion-margin-top">
-      <ion-input
-        type="email"
-        class="input"
-        placeholder="Email Id"
-        formControlName="email"
       ></ion-input>
     </div>
     <div class="ion-margin-top input">
@@ -67,23 +59,6 @@
       ></ion-input>
     </div>
     <div class="ion-margin-top">
-      <ion-input
-        type="password"
-        placeholder="Password"
-        class="input"
-        formControlName="password"
-      ></ion-input>
-    </div>
-    <div class="ion-margin-top">
-      <ion-input
-        type="password"
-        placeholder="Confirm Password"
-        class="input"
-        formControlName="confirmPassword"
-      >
-      </ion-input>
-    </div>
-    <div class="ion-margin-top">
       <ion-textarea
         class="input textarea"
         rows="5"
@@ -97,8 +72,8 @@
       <ion-button
         class="submit ion-text-capitalize"
         type="submit"
-        [disabled]="!accountForm.valid"
-        >Create Account
+        [disabled]="!basicupdationform.valid"
+        >Update
       </ion-button>
     </div>
   </form>

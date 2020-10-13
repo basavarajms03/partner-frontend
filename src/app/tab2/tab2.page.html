@@ -4,14 +4,14 @@
 
     <ion-buttons slot="end">
       <ion-button [routerLink]="['/tabs/notifications']">
-        <ion-icon name="notifications"></ion-icon>
+        <i class="material-icons">notifications_none </i>
         <ion-badge color="danger" class="notification"
           >{{notification_count}}</ion-badge
         >
       </ion-button>
 
       <ion-button (click)="logout()">
-        <ion-icon name="log-out-outline"></ion-icon>
+        <i class="material-icons">exit_to_app </i>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -30,14 +30,28 @@
     (ionChange)="segmentChange($event)"
   >
     <ion-segment-button value="personal">
-      <ion-label class="ion-text-capitalize"><b>Personal Info</b></ion-label>
+      <ion-label class="ion-text-capitalize">About</ion-label>
     </ion-segment-button>
     <ion-segment-button value="password">
-      <ion-label class="ion-text-capitalize"><b>Change Password</b></ion-label>
+      <ion-label class="ion-text-capitalize">Change Password</ion-label>
     </ion-segment-button>
   </ion-segment>
 
   <ion-list *ngIf="category === 'personal' && profileData">
+    <ion-label color="primary">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="8">
+            <b>Basic Details</b>
+          </ion-col>
+          <ion-col size="4" color="primary">
+            <a class="edit" [routerLink]="['update-basic-details']">
+              <span><i class="material-icons font-12">edit</i> Edit</span>
+            </a>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-label>
     <ion-item lines="full">
       <ion-label>
         <span>Name</span>
@@ -68,35 +82,62 @@
         <p class="darkgray">{{profileData?.city}}</p>
       </ion-label>
     </ion-item>
-    <ion-label class="ion-padding" color="primary">
-      <b>Accounts Information</b>
+    <ion-label color="primary">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="8">
+            <b>Accounts Information</b>
+          </ion-col>
+          <ion-col
+            size="4"
+            color="primary"
+            *ngIf="profileData.bankDetails?.bankName"
+          >
+            <a class="edit" [routerLink]="['add-bank-details']">
+              <span><i class="material-icons font-12">edit</i> Edit</span>
+            </a>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-label>
-    <ion-item lines="full">
-      <ion-label>
-        <span>Bank Name</span>
-        <p class="darkgray">Karnatak Bank</p>
-      </ion-label>
-    </ion-item>
-    <ion-item lines="full">
-      <ion-label>
-        <span>Name On Bank</span>
-        <p class="darkgray">Basavaraj M S</p>
-      </ion-label>
-    </ion-item>
-    <ion-item lines="full">
-      <ion-label>
-        <span>Account No</span>
-        <p class="darkgray">1832500102403801</p>
-      </ion-label>
-    </ion-item>
-    <ion-item lines="none">
-      <ion-label>
-        <span>IFSC Code</span>
-        <p class="darkgray">KARB0000123</p>
-      </ion-label>
-    </ion-item>
-    <div class="ion-text-center">
-      <ion-button class="secondary ion-text-capitalize"
+    <div *ngIf="profileData.bankDetails?.bankName">
+      <ion-item lines="full">
+        <ion-label>
+          <span>Bank Name</span>
+          <p class="darkgray ion-text-uppercase">
+            {{profileData.bankDetails.bankName}}
+          </p>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label>
+          <span>Name On Bank</span>
+          <p class="darkgray ion-text-uppercase">
+            {{profileData.bankDetails.nameasperbank}}
+          </p>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label>
+          <span>Account No</span>
+          <p class="darkgray ion-text-uppercase">
+            {{profileData.bankDetails.accountNo}}
+          </p>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>
+          <span>IFSC Code</span>
+          <p class="darkgray ion-text-uppercase">
+            {{profileData.bankDetails.ifscCode}}
+          </p>
+        </ion-label>
+      </ion-item>
+    </div>
+    <div class="ion-text-center" *ngIf="!profileData.bankDetails?.bankName">
+      <ion-button
+        class="secondary ion-text-capitalize"
+        [routerLink]="['add-bank-details']"
         ><ion-icon name="add-circle-outline"></ion-icon>&nbsp; Add Bank
         Details</ion-button
       >

@@ -3,7 +3,7 @@ import { ApiService } from "src/app/shared/api.service";
 import { AlertComponent } from "src/app/shared/alert/alert.component";
 import { LoadingComponent } from "src/app/shared/loading/loading.component";
 import { Router, ActivatedRoute } from "@angular/router";
-import { FormGroup, FormControl } from "@angular/forms";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-login",
@@ -20,12 +20,12 @@ export class LoginComponent implements OnInit {
     private loadingCtrl: LoadingComponent,
     private router: Router,
     private actRouter: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.form = new FormGroup({
-      username: new FormControl(null),
-      password: new FormControl(null),
+      username: new FormControl(null, [Validators.required]),
+      password: new FormControl(null, [Validators.required]),
     });
 
     let params = this.actRouter.snapshot.params;

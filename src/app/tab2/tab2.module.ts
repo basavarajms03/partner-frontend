@@ -1,3 +1,5 @@
+import { UpdateBasicDetailsComponent } from './update-basic-details/update-basic-details.component';
+import { AddBankDetailsComponent } from './add-bank-details/add-bank-details.component';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -12,11 +14,13 @@ import { ApiService } from '../shared/api.service';
     IonicModule,
     CommonModule,
     FormsModule,
-    RouterModule.forChild([{ path: '', component: Tab2Page }]),
+    RouterModule.forChild([{ path: '', component: Tab2Page },
+    { path: 'add-bank-details', component: AddBankDetailsComponent },
+    { path: 'update-basic-details', component: UpdateBasicDetailsComponent }]),
     ReactiveFormsModule,
     HttpClientModule
   ],
-  declarations: [Tab2Page],
+  declarations: [Tab2Page, AddBankDetailsComponent, UpdateBasicDetailsComponent],
   providers: [ApiService]
 })
-export class Tab2PageModule {}
+export class Tab2PageModule { }
