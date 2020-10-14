@@ -109,8 +109,8 @@ export class CreateAccountComponent implements OnInit {
         if (response['code'] === 200) {
           /** Disable Loading */
           loading.dismiss();
+          this.router.navigate(['/authentication/verify-otp', { mobileNumber: `+91${this.accountForm.value.phoneNumber}` }]);
           this.accountForm.reset();
-          this.router.navigate(['/authentication/login']);
         } else {
           /** Disable Loading */
           this.alert.createAlert("Exist", response['message']);

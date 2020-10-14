@@ -43,20 +43,21 @@ export class LoginComponent implements OnInit {
     this.apiService.post("/v1/auth/login", formValue).subscribe(
       (response) => {
         if (response["code"] === 200) {
-          localStorage.setItem("Token", response["token"]);
-          localStorage.setItem("name", response["data"].name);
-          localStorage.setItem("email", response["data"].email);
-          localStorage.setItem("phoneNumber", response["data"].phoneNumber);
-
-          if (response["data"].email === "naduvinamanimanjunath@gmail.com") {
-            localStorage.setItem("admin", "true");
-          } else {
-            localStorage.setItem("admin", "false");
-          }
-
-          loading.dismiss();
-          this.form.reset();
-          this.router.navigate(["/tabs"]);
+          let params = { phoneNumber: this.form.value.username };
+          this.apiService.post('/v1/auth/profile', params).subscribe(profileData => {
+            loading.dismiss();
+            if (profileData['data'].userVerified) {
+              this.form.reset();
+              localStorage.setItem("Token", response["token"]);
+              localStorage.setItem("name", response["data"].name);
+              localStorage.setItem("email", response["data"].email);
+              localStorage.setItem("phoneNumber", response["data"].phoneNumber);
+              this.router.navigate(['/tabs']);
+            } else {
+              this.router.navigate(['/authentication/verify-otp/', { mobileNumber: `+91${this.form.value.username}` }]);
+              this.form.reset();
+            }
+          });
         }
       },
       (error) => {

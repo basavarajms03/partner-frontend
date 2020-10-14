@@ -1,3 +1,4 @@
+import { VerifyOTPComponent } from './authentication/verify-otp/verify-otp.component';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './authentication/login/login.component';
@@ -24,6 +25,10 @@ const routes: Routes = [
       {
         path: 'reset-password',
         component: ResetPasswordComponent
+      },
+      {
+        path: 'verify-otp',
+        component: VerifyOTPComponent
       },
       {
         path: 'logout/:status',

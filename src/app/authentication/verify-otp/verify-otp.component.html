@@ -1,3 +1,48 @@
-<p>
-  verify-otp works!
-</p>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">Verify OTP</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding ion-text-center ion-margin-top">
+  <div id="recaptch-container"></div>
+  <img src="/assets/reset.png" alt="" srcset="" width="50%" />
+  <h5 class="ion-text-center title">Verification</h5>
+  <ion-label class="ion-text-center">
+    <p>
+      Enter the OTP, that we sent to mobile number
+      <span class="number">{{ userNumber }}</span
+      >.
+    </p>
+  </ion-label>
+  <form autocomplete="off" [formGroup]="verifyOTPForm" (ngSubmit)="verifyOTP()">
+    <ion-input
+      type="number"
+      placeholder="OTP"
+      class="input ion-text-left"
+      formControlName="otp"
+    ></ion-input>
+
+    <p
+      class="error"
+      *ngIf="
+        verifyOTPForm.controls['otp'].hasError('required') &&
+        verifyOTPForm.controls['otp'].touched
+      "
+      padding
+    >
+      Enter 6 digit OTP
+    </p>
+    <div class="ion-margin-top ion-text-center">
+      <ion-button
+        type="submit"
+        class="submit ion-text-capitalize"
+        [disabled]="verifyOTPForm.invalid"
+        >Verify OTP</ion-button
+      >
+    </div>
+  </form>
+</ion-content>
