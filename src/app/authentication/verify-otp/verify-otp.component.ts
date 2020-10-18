@@ -32,7 +32,7 @@ export class VerifyOTPComponent implements OnInit {
   async sendOTP() {
     /*** send the otp to user number */
     let verifier = new firebase.auth.RecaptchaVerifier('recaptch-container', { size: 'invisible' });
-    let params = { phoneNumber: this.userNumber.substr(3) };
+    let params = { phoneNumber: this.userNumber.substr(3), "registrationType": "Worker" };
 
     let loading = await this.loading.loading();
     loading.present();

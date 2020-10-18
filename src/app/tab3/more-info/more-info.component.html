@@ -81,6 +81,23 @@
       <p class="ion-text-wrap ion-text-justify">{{ result[0]?.description }}</p>
     </ion-label>
   </ion-item>
+
+  <ion-item lines="none">
+    <ion-label>
+      <h2 class="heading">Attachments</h2>
+      <p *ngIf="!result[0]['attachments']">No Attachments Added</p>
+    </ion-label>
+  </ion-item>
+
+  <ion-item lines="none" *ngIf="result[0]['attachments']">
+    <div>
+      <img
+        [src]="result[0]['attachments']"
+        class="image"
+        (click)="seeFullImage(result[0]['attachments'])"
+      />
+    </div>
+  </ion-item>
   <ion-grid>
     <ion-row>
       <ion-col>

@@ -8,22 +8,40 @@
   </ion-toolbar>
 </ion-header>
 
-
-<ion-content *ngIf="notifications?.length == 0" class="ion-text-center ion-margin ion-padding">
+<ion-content
+  *ngIf="notifications?.length == 0"
+  class="ion-text-center ion-margin ion-padding"
+>
   <img src="/assets/empty-notification.png" />
   <h3 class="ion-no-margin ion-no-padding"><b>No Notifications Found</b></h3>
 </ion-content>
 
 <ion-content *ngIf="notifications?.length != 0">
   <div class="ion-margin-top">
-    <ion-item lines="full" [routerLink]="[notification.url, notification.estimation_id]"
-      *ngFor="let notification of notifications">
-      <ion-avatar slot="start" class="avatar" [ngStyle]="{'background': background}"
-        [innerHTML]="notification?.customerInfo[0].name[0]">
+    <ion-item
+      lines="full"
+      [routerLink]="[notification.url, notification.estimation_id]"
+      *ngFor="let notification of notifications"
+    >
+      <ion-avatar
+        slot="start"
+        class="avatar"
+        [ngStyle]="{'background': colorStyles.background, 'color': colorStyles.color}"
+        [innerHTML]="notification?.customerInfo[0].name[0]"
+      >
       </ion-avatar>
       <ion-label>
         <span class="notification-heading">{{notification?.message}}</span>
-        <p class="notification-by">By {{notification?.customerInfo[0].name}}</p>
+        <ion-row>
+          <ion-col size="8" class="ion-no-padding"
+            ><p class="notification-by overflow">
+              By {{notification?.customerInfo[0].name}}
+            </p></ion-col
+          >
+          <ion-col size="4" class="ion-no-padding time"
+            ><p>{{notification?.updatedAt | timeAgo}}</p></ion-col
+          >
+        </ion-row>
       </ion-label>
     </ion-item>
   </div>

@@ -93,3 +93,8 @@ h2 {
 .material-icons {
   font-family: "Material Icons" !important;
 }
+
+.overflow {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}

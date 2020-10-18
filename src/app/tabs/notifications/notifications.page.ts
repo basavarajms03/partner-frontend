@@ -12,7 +12,10 @@ import { charSet } from "../notifications/notification.constants";
 export class NotificationsPage {
 
   notifications: any;
-  background = "navy";
+  colorStyles = {
+    background: '#cce5ff',
+    color: '#004085'
+  };
   code;
 
   constructor(private apiService: ApiService, private loading: LoadingComponent) { }

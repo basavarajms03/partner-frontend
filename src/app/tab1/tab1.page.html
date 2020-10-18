@@ -84,17 +84,31 @@
         lines="full"
         [routerLink]="['/tabs/dashboard/more-info', workrorders._id]"
       >
-        <ion-avatar slot="start">
-          <ion-icon name="briefcase" class="icon-start"></ion-icon>
+        <ion-avatar slot="start" class="start-icon">
+          <ion-icon
+            name="briefcase"
+            class="icon-start"
+            [ngClass]="[
+          workrorders.status === 'Rejected'?  'rejected' : '',
+          workrorders.status === 'Start Work'?  'startwork' : '',
+          workrorders.status === 'New'?  'new' : '',
+          workrorders.status === 'In-Progress'?  'inProgress' : '',
+          workrorders.status === 'Active'?  'active' : '',
+          workrorders.status === 'Completed'?  'resolved' : '',
+          workrorders.status === 'Cancelled'?  'cancelled' : '',
+          workrorders.status === 'Work Assigned'?  'work-assigned' : ''
+          ]"
+          ></ion-icon>
         </ion-avatar>
         <ion-label>
           <ion-grid class="ion-text-capitalize ion-no-padding">
             <ion-row>
-              <ion-col class="ion-text-capitalize ion-no-padding">
+              <ion-col class="overflow ion-text-capitalize ion-no-padding">
                 <span>{{workrorders.fullName}}</span>
               </ion-col>
-              <ion-col
-                class="ion-text-capitalize ion-no-padding ion-text-right"
+              <!-- <ion-col
+                size="6"
+                class="overflow ion-text-capitalize ion-no-padding ion-text-right"
                 [ngClass]="[
             workrorders.status === 'Rejected'?  'rejected' : '',
             workrorders.status === 'Start Work'?  'startwork' : '',
@@ -106,7 +120,7 @@
             workrorders.status === 'Work Assigned'?  'work-assigned' : ''
             ]"
                 >{{workrorders.status}}</ion-col
-              >
+              > -->
             </ion-row>
           </ion-grid>
           <p>{{workrorders.description}}</p>

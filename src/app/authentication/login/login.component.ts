@@ -43,12 +43,13 @@ export class LoginComponent implements OnInit {
     this.apiService.post("/v1/auth/login", formValue).subscribe(
       (response) => {
         if (response["code"] === 200) {
-          let params = { phoneNumber: this.form.value.username };
+          let params = { phoneNumber: this.form.value.username, registrationType: 'Worker' };
           this.apiService.post('/v1/auth/profile', params).subscribe(profileData => {
             loading.dismiss();
             if (profileData['data'].userVerified) {
               this.form.reset();
               localStorage.setItem("Token", response["token"]);
+              localStorage.setItem("employeeTypes", response["data"]["employeeType"]);
               localStorage.setItem("name", response["data"].name);
               localStorage.setItem("email", response["data"].email);
               localStorage.setItem("phoneNumber", response["data"].phoneNumber);

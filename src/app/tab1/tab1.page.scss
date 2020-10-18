@@ -44,14 +44,17 @@ ion-content ion-toolbar {
 
 .completed {
   color: rgb(97, 175, 80);
+  font-size: 10px;
 }
 
 .pending {
   color: #ff8300;
+  font-size: 10px;
 }
 
 .request {
   color: blue;
+  font-size: 10px;
 }
 
 .img-css {
@@ -81,27 +84,27 @@ ion-content ion-toolbar {
 }
 
 .startwork {
-  color: navy;
+  color: #004085;
 }
 
 .new {
-  color: #e55524 !important;
+  color: #383d41 !important;
 }
 
 .inProgress {
-  color: #1182c5 !important;
+  color: #856404 !important;
 }
 
 .active {
-  color: #8d191c !important;
+  color: #721c24 !important;
 }
 
 .resolved {
-  color: #136b36 !important;
+  color: #155724 !important;
 }
 
 .cancelled {
-  color: #000000 !important;
+  color: #1b1e21 !important;
 }
 
 .sub-description {
@@ -111,8 +114,4 @@ ion-content ion-toolbar {
 .work-assigned {
   --background: gray;
   color: white;
-}
-
-.segment-scrollable::-webkit-scrollbar {
-  display: none;
 }

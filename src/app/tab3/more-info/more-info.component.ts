@@ -3,12 +3,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingComponent } from 'src/app/shared/loading/loading.component';
 import { ApiService } from 'src/app/shared/api.service';
 import { workorderModel } from 'src/app/tab1/workorder.model';
+import { PhotoViewer } from "@ionic-native/photo-viewer/ngx/index";
 
 @Component({
   selector: 'app-more-info',
   templateUrl: './more-info.component.html',
   styleUrls: ['./more-info.component.scss'],
-  providers: [LoadingComponent]
+  providers: [LoadingComponent, PhotoViewer]
 })
 export class MoreInfoComponent implements OnInit {
 
@@ -17,7 +18,9 @@ export class MoreInfoComponent implements OnInit {
   notification_count = 0;
   assignwork = false;
 
-  constructor(private actRouter: ActivatedRoute, private router: Router, private loadingController: LoadingComponent, private apiService: ApiService) { }
+  constructor(private actRouter: ActivatedRoute,
+    private photoViewer: PhotoViewer,
+    private router: Router, private loadingController: LoadingComponent, private apiService: ApiService) { }
 
   async ngOnInit() {
   }
@@ -96,4 +99,7 @@ export class MoreInfoComponent implements OnInit {
     this.router.navigate(['/authentication/logout/true']);
   }
 
+  seeFullImage(event) {
+    this.photoViewer.show(event, this.result[0].problemType, { share: true });
+  }
 }

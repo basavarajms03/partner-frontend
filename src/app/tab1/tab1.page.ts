@@ -1,3 +1,4 @@
+import { ReusableVariableService } from './../shared/reusable-variable.service';
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../shared/api.service";
 import { LoadingComponent } from "../shared/loading/loading.component";
@@ -19,22 +20,31 @@ export class Tab1Page implements OnInit {
   constructor(
     private apiService: ApiService,
     private loading: LoadingComponent,
-    private router: Router
-  ) {}
+    private router: Router,
+    private reusable: ReusableVariableService
+  ) { }
 
   ionViewWillEnter() {
     let statuses = {
-      requests: { filter: { status: "New", startWork: false } },
+      requests: {
+        filter: {
+          status: "New",
+          startWork: false,
+          problemType: { $in: this.reusable.getEmployeeTypes }
+        }
+      },
       pending: {
         filter: {
           status: { $nin: ["New", "Completed"] },
           assignee_email: localStorage.getItem("email"),
+          problemType: { $in: this.reusable.getEmployeeTypes }
         },
       },
       completed: {
         filter: {
           status: "Completed",
           assignee_email: localStorage.getItem("email"),
+          problemType: { $in: this.reusable.getEmployeeTypes }
         },
       },
     };
@@ -42,7 +52,7 @@ export class Tab1Page implements OnInit {
     this.checkWorkorders(params);
   }
 
-  async ngOnInit() {}
+  async ngOnInit() { }
 
   async checkWorkorders(event) {
     let loading = await this.loading.loading();
@@ -63,6 +73,7 @@ export class Tab1Page implements OnInit {
       params["filter"] = {
         status: "New",
         startWork: false,
+        problemType: { $in: this.reusable.getEmployeeTypes }
       };
     }
     if (this.segment === "pending") {
@@ -71,12 +82,14 @@ export class Tab1Page implements OnInit {
           $nin: ["New", "Completed"],
         },
         assignee_email: localStorage.getItem("email"),
+        problemType: { $in: this.reusable.getEmployeeTypes }
       };
     }
     if (this.segment === "completed") {
       params["filter"] = {
         status: "Completed",
         assignee_email: localStorage.getItem("email"),
+        problemType: { $in: this.reusable.getEmployeeTypes }
       };
     }
     this.checkWorkorders(params);

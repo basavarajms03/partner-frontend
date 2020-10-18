@@ -29,7 +29,7 @@ export class Tab2Page {
     });
 
     this.changePassword.addControl('email', new FormControl(localStorage.getItem('email')));
-    let params = { email: localStorage.getItem('email') };
+    let params = { email: localStorage.getItem('email'), registrationType: 'Worker' };
 
     let loading = await this.loading.loading();
     loading.present();

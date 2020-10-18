@@ -14,4 +14,8 @@ export class ReusableVariableService {
   get email(): string {
     return localStorage.getItem('email');
   }
+
+  get getEmployeeTypes(): Array<string> {
+    return Array(localStorage.getItem('employeeTypes'));
+  }
 }

@@ -96,7 +96,7 @@ export class UpdateBasicDetailsComponent implements OnInit {
   async loadBasicDetails() {
     let loading = await this.loadingtrl.loading();
     loading.present();
-    let params = { phoneNumber: localStorage.getItem('phoneNumber') };
+    let params = { phoneNumber: localStorage.getItem('phoneNumber'), "registrationType": "Worker" };
     this.apiService.post('/v1/auth/profile', params).subscribe(response => {
       if (response['data']) {
         loading.dismiss();
