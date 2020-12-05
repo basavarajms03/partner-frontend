@@ -25,6 +25,25 @@
   }
 }
 
+.cart-info {
+  --background: #6767ab;
+  .cart {
+    margin-left: 10px;
+    color: white;
+  }
+}
+
+.edit-icon {
+  font-size: 20px;
+  color: #13138e;
+  margin-right: 5px;
+}
+
+.del-icon {
+  font-size: 20px;
+  color: #e00e0e;
+}
+
 .nodata-img {
   width: 35%;
 }
@@ -156,4 +175,16 @@
   right: 5px;
   color: white;
   font-size: 23px;
+}
+
+.last-button {
+  position: absolute;
+  width: -webkit-fill-available;
+  bottom: 0px;
+}
+
+.submit-secondary {
+  margin: 0px;
+  --border-radius: 0px;
+  margin-top: 8px;
 }

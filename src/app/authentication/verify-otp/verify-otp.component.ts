@@ -58,7 +58,8 @@ export class VerifyOTPComponent implements OnInit {
 
     let otp = this.verifyOTPForm.value.otp.toString();
     let otpParameters = {
-      phoneNumber: this.userNumber.substr(3)
+      phoneNumber: this.userNumber.substr(3),
+      "registrationType": "Worker"
     }
     let credentials = firebase.auth.PhoneAuthProvider.credential(this.verificationId, otp);
     firebase.auth().signInWithCredential(credentials).then(successResponse => {

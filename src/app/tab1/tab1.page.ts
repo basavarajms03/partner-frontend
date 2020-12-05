@@ -17,12 +17,19 @@ export class Tab1Page implements OnInit {
   result: workorderModel[] = [];
   status: String = "new";
   segment = "requests";
+  private socket: any;
   constructor(
     private apiService: ApiService,
     private loading: LoadingComponent,
     private router: Router,
     private reusable: ReusableVariableService
-  ) { }
+  ) {
+    this.socket = this.apiService.initSocket;
+    console.log("Socket", this.socket);
+    this.socket.on('notification', response => {
+      console.log("Response information", response);
+    });
+  }
 
   ionViewWillEnter() {
     let statuses = {

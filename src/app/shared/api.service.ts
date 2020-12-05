@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from "@angular/common/http";
+import * as io from 'socket.io-client';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,10 @@ export class ApiService {
     } else {
       this.admin = false;
     }
+  }
+
+  get initSocket() {
+    return io(environment.apiBaseUrl)
   }
 
   getToken() {

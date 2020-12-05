@@ -74,6 +74,10 @@ export class CreateAccountComponent implements OnInit {
     {
       name: "Massage At Home",
       value: "Massage At Home"
+    },
+    {
+      name: "GST Registration",
+      value: "GST Registration"
     }
   ];
   accountForm: FormGroup;

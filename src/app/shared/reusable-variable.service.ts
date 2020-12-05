@@ -16,6 +16,6 @@ export class ReusableVariableService {
   }
 
   get getEmployeeTypes(): Array<string> {
-    return Array(localStorage.getItem('employeeTypes'));
+    return localStorage.getItem('employeeTypes').split(',');
   }
 }

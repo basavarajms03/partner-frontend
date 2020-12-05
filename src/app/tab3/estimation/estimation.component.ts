@@ -15,6 +15,7 @@ export class EstimationComponent implements OnInit {
 
   params;
   estimationForm: FormGroup;
+  buttonTitle = "Add Item";
   itemInfo;
   edit = false;
   editId_info;
@@ -37,6 +38,8 @@ export class EstimationComponent implements OnInit {
 
   async ngOnInit() {
 
+    this.edit = false;
+    this.buttonTitle = "Add Item";
     this.params = this.actRouter.snapshot.params;
 
     this.estimationForm = new FormGroup({
@@ -136,6 +139,9 @@ export class EstimationComponent implements OnInit {
 
   itemEdit(itemName, price, _id) {
     this.edit = true;
+    if (this.edit) {
+      this.buttonTitle = "Update Item";
+    }
     this.editId_info = _id;
     let formData = {
       itemName: itemName,
@@ -147,6 +153,7 @@ export class EstimationComponent implements OnInit {
   editCancel() {
     this.editId_info = "";
     this.edit = false;
+    this.buttonTitle = "Add Item";
     this.estimationForm.reset();
   }
 
@@ -212,33 +219,6 @@ export class EstimationComponent implements OnInit {
       ]
     });
     (await createAlert).present();
-  }
-
-  async startworkorder() {
-
-    let parms = {
-      filter: {
-        assignee_email: this.itemInfo.email,
-        _id: this.itemInfo.product_id
-      },
-      created_email: this.itemInfo.email,
-      estimation_id: this.itemInfo._id,
-      update: {
-        startWork: true,
-        status: "Start Work"
-      }
-    }
-
-    let createLoading = await this.loading.loading();
-    (createLoading).present();
-
-    this.apiService.post('/v1/dashboard/startworkorder', parms).subscribe(res => {
-      createLoading.dismiss();
-      if (res['code'] == "200") {
-        this.router.navigate(['/tabs/dashboard']);
-      }
-    });
-
   }
 
   logout() {

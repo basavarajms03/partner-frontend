@@ -12,13 +12,19 @@ import { charSet } from "../notifications/notification.constants";
 export class NotificationsPage {
 
   notifications: any;
+  socket: any;
   colorStyles = {
     background: '#cce5ff',
     color: '#004085'
   };
   code;
 
-  constructor(private apiService: ApiService, private loading: LoadingComponent) { }
+  constructor(private apiService: ApiService, private loading: LoadingComponent) {
+    this.socket = this.apiService.initSocket;
+    this.socket.on('notification', data => {
+      console.log("Notification information", data);
+    });
+  }
 
   async ionViewWillEnter() {
 

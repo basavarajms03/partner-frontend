@@ -12,8 +12,16 @@
   *ngIf="notifications?.length == 0"
   class="ion-text-center ion-margin ion-padding"
 >
-  <img src="/assets/empty-notification.png" />
-  <h3 class="ion-no-margin ion-no-padding"><b>No Notifications Found</b></h3>
+  <img
+    src="/assets/empty-notification.png"
+    width="60%"
+    class="ion-margin-top"
+  />
+  <h6
+    class="paragraph content ion-text-center ion-text-capitalize ion-no-margin"
+  >
+    You don't have any notification
+  </h6>
 </ion-content>
 
 <ion-content *ngIf="notifications?.length != 0">

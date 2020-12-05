@@ -39,7 +39,12 @@ sc-ion-input-md {
   box-shadow: 0 1px 3px 0 rgba(32, 33, 36, 0.28);
   padding-left: 9px !important;
   border-radius: 225px;
-  border: 1px solid #f3f3f3;
+  border: 1px solid #ced4da;
+  padding-right: 9px !important;
+}
+
+.input-secondary {
+  border: 1px solid #ced4da;
   padding-right: 9px !important;
 }
 
@@ -60,6 +65,15 @@ h2 {
 .submit {
   --background: #0148a4;
   --border-radius: 30px;
+  --padding-bottom: 20px;
+  --padding-start: 30px;
+  --padding-end: 30px;
+  --padding-top: 20px;
+  font-size: 12px !important;
+}
+
+.submit-secondary {
+  --background: #0148a4;
   --padding-bottom: 20px;
   --padding-start: 30px;
   --padding-end: 30px;
@@ -95,6 +109,12 @@ h2 {
 }
 
 .overflow {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.overflow-sec {
+  white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
 }
